@@ -1,7 +1,7 @@
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  canvas.width = 800;
+  canvas.width = 1600;
   canvas.height = 720;
   let enemies = []; // set enemies to an empty array
 
@@ -22,7 +22,7 @@ window.addEventListener("load", function () {
         ) {
           this.keys.push(e.key);
         }
-        console.log("key down " + e.key, this.keys);
+        // console.log("key down " + e.key, this.keys);
       });
 
       // take note when they key pressed has been lifted
@@ -36,7 +36,7 @@ window.addEventListener("load", function () {
           // remove the key up from the array using splice and indexOf method
           this.keys.splice(this.keys.indexOf(e.key), 1);
         }
-        console.log("key up " + e.key, this.keys);
+        // console.log("key up " + e.key, this.keys);
       });
     }
   }
@@ -55,6 +55,12 @@ window.addEventListener("load", function () {
       this.image = document.getElementById("playerImage");
       this.frameX = 0; // the frame within the sprite sheet
       this.frameY = 0;
+      this.maxFrame = 8; // since we have 8 horizontal frames
+
+      this.fps = 20; // sets how fast we switch between different enemy frames. for this particular sprite sheet, it meant for 20 fps
+      this.frameTimer = 0;
+      this.frameInterval = 1000 / this.fps;
+
       this.speed = 0; // positive will move the sprite right, negative left. this value is changed in the update() method
       this.velocityY = 0;
       this.gravity = 1;
@@ -77,10 +83,24 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update(input) {
+    update(input, deltaTime) {
       // takes in the input object to update the player movement
-      // if input of arrowkey exist, it's index will not be -1
+
+      // sprite animation FPS
+      if (this.frameTimer > this.frameInterval) {
+        if (this.frameX >= this.maxFrame)
+          this.frameX = 0; // reset frameX to 0 if it reaches to the max of available sprite frames
+        else {
+          this.frameX++; // let the frameX go to the next available frame
+          this.frameTimer = 0;
+        }
+      } else {
+        this.frameTimer += deltaTime; //
+      }
+
+      // Controls
       if (input.keys.indexOf("ArrowRight") > -1) {
+        // if input of arrowkey exist, it's index will not be -1
         this.speed = 5;
       } else if (input.keys.indexOf("ArrowLeft") > -1) {
         this.speed = -5;
@@ -104,9 +124,11 @@ window.addEventListener("load", function () {
       // If player character is not on the ground, allow the idea of gravity pulling him down
       if (this.onGround() === false) {
         this.velocityY += this.gravity;
-        this.frameY = 1; // change the sprite to jumping frame
+        this.maxFrame = 5; // since the bottom row of the sprite sheet only got 5 frames for the jumping
+        this.frameY = 1; // change the sprite to jumping frame which is the bottom row 1
       } else {
         this.velocityY = 0; // limit movement in the y-direction.
+        this.maxFrame = 8; // since the running animation has 8 frames
         this.frameY = 0; // reset frame to on the ground
       }
       // to further limit movement in the y-direction after jumping too high, and causing the character to partially go lower than the ground
@@ -167,6 +189,7 @@ window.addEventListener("load", function () {
       this.fps = 20; // sets how fast we switch between different enemy frames. for this particular sprite sheet, it meant for 20 fps
       this.frameTimer = 0;
       this.frameInterval = 1000 / this.fps;
+      this.markedForDeletion = false;
     }
     draw(context) {
       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight). image, dx, dy are compulsory parameters. the rest are optional
@@ -184,7 +207,7 @@ window.addEventListener("load", function () {
     }
     update(deltaTime) {
       if (this.frameTimer > this.frameInterval) {
-        if (this.frameX > this.maxFrame) {
+        if (this.frameX >= this.maxFrame) {
           this.frameX = 0; // reset frameX to 0
         } else {
           this.frameX++;
@@ -194,6 +217,7 @@ window.addEventListener("load", function () {
         this.frameTimer += deltaTime; // else keep adding deltaTime to frameTimer until the threshold of frameInterval is reached
       }
       this.x -= this.speed;
+      if (this.x < 0 - this.width) this.markedForDeletion = true; // once enemy passes the left of x-axis, set it to be marked for deletion
     }
   }
 
@@ -202,6 +226,7 @@ window.addEventListener("load", function () {
     if (enemyTimer > enemyInterval + randomEnemyInterval) {
       // Instantiating enemy objects and pushing them into an array
       enemies.push(new Enemy(canvas.width, canvas.height)); // instantiate enemy object
+      console.log(enemies);
       enemyTimer = 0; // reset enemyTimer to 0
     } else {
       enemyTimer += deltaTime; // else, keep incrementing enemyTimer by the delta time till the enemy Interval is reached
@@ -212,6 +237,9 @@ window.addEventListener("load", function () {
       enemy.draw(ctx);
       enemy.update(deltaTime); // making sure that enemy is updated per delta time
     });
+
+    // update the enemy array and remove enemy objects that have gone past the screen x-axis
+    enemies = enemies.filter((enemy) => !enemy.markedForDeletion); //
   }
 
   // All the width for the player, background and enemy objects are set by the canvas dimensions
@@ -238,7 +266,7 @@ window.addEventListener("load", function () {
     background.update();
 
     player.draw(ctx);
-    player.update(input);
+    player.update(input, deltaTime);
 
     // enemy1.draw(ctx); // call this inside the handleEnemies function to generate constant stream of enemy objects
     // enemy1.update();
