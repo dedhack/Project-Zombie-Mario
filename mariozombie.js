@@ -61,9 +61,9 @@ window.addEventListener("load", function () {
     }
     // specify which context we want to draw on. in case future changes involve multiple canvas contexts
     draw(context) {
-      context.fillStyle = "white"; // background set to white for visibility
+      //   context.fillStyle = "white"; // background set to white for visibility
       // position x and y of sprite in the context. Width and height of the sprite
-      context.fillRect(this.x, this.y, this.width, this.height);
+      //   context.fillRect(this.x, this.y, this.width, this.height);
       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight). image, dx, dy are compulsory parameters. the rest are optional
       context.drawImage(
         this.image,
@@ -161,6 +161,12 @@ window.addEventListener("load", function () {
       this.x = this.gameWidth; // enemy appear from the left
       this.y = this.gameHeight - this.height; // vertical coordinate
       this.frameX = 0;
+      this.speed = 8; // speed of enemy object
+
+      this.maxFrame = 5; // enemy sprite sheet only got 5 frames
+      this.fps = 20; // sets how fast we switch between different enemy frames. for this particular sprite sheet, it meant for 20 fps
+      this.frameTimer = 0;
+      this.frameInterval = 1000 / this.fps;
     }
     draw(context) {
       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight). image, dx, dy are compulsory parameters. the rest are optional
@@ -176,14 +182,24 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update() {
-      this.x--;
+    update(deltaTime) {
+      if (this.frameTimer > this.frameInterval) {
+        if (this.frameX > this.maxFrame) {
+          this.frameX = 0; // reset frameX to 0
+        } else {
+          this.frameX++;
+          this.frameTimer = 0; // reset frameTimer to 0
+        }
+      } else {
+        this.frameTimer += deltaTime; // else keep adding deltaTime to frameTimer until the threshold of frameInterval is reached
+      }
+      this.x -= this.speed;
     }
   }
 
   // Function to generate enemies
   function handleEnemies(deltaTime) {
-    if (enemyTimer > enemyInterval) {
+    if (enemyTimer > enemyInterval + randomEnemyInterval) {
       // Instantiating enemy objects and pushing them into an array
       enemies.push(new Enemy(canvas.width, canvas.height)); // instantiate enemy object
       enemyTimer = 0; // reset enemyTimer to 0
@@ -194,7 +210,7 @@ window.addEventListener("load", function () {
     }
     enemies.forEach((enemy) => {
       enemy.draw(ctx);
-      enemy.update();
+      enemy.update(deltaTime); // making sure that enemy is updated per delta time
     });
   }
 
@@ -207,7 +223,8 @@ window.addEventListener("load", function () {
 
   //  Setting up the timer for enemy spawns
   let enemyTimer = 0;
-  let enemyInterval = 1000; // setting the interval on how many seconds before enemy object is spawned
+  let enemyInterval = 2000; // setting the interval on how many seconds before enemy object is spawned
+  let randomEnemyInterval = Math.random() * 1000 + 500; // randomly set the interval between 500 - 1500 ms
 
   function animate(timeStamp) {
     // FPS
