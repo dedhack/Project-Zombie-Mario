@@ -75,7 +75,22 @@ window.addEventListener("load", function () {
       );
     }
     update(input) {
-    //   this.x += this.speed;
+      // takes in the input object to update the player movement
+      this.x += this.speed;
+      // if input of arrowkey exist, it's index will not be -1
+      if (input.keys.indexOf("ArrowRight") > -1) {
+        this.speed = 5;
+      } else if (input.keys.indexOf("ArrowLeft") > -1) {
+        this.speed = -5;
+        console.log(this.x);
+      } else {
+        this.speed = 0;
+      }
+      if (this.x < 0) {
+        this.x = 0; // limits movement in the x-direction to the left.
+      } else if (this.x > this.gameWidth - this.width) {
+        this.x = this.gameWidth - this.width; // limits movement in the x-direction to the right
+      }
     }
   }
 
@@ -85,7 +100,7 @@ window.addEventListener("load", function () {
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.draw(ctx);
-    player.update();
+    player.update(input);
     requestAnimationFrame(animate);
   }
   animate();
