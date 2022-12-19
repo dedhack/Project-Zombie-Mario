@@ -3,6 +3,7 @@ window.addEventListener("load", function () {
   const ctx = canvas.getContext("2d");
   canvas.width = 800;
   canvas.height = 720;
+  let enemies = []; // set enemies to an empty array
 
   // class to handle input from users
   class InputHandler {
@@ -149,17 +150,83 @@ window.addEventListener("load", function () {
     }
   }
 
+  class Enemy {
+    constructor(gameWidth, gameHeight) {
+      this.gameWidth = gameWidth;
+      this.gameHeight = gameHeight;
+      // sprite character dimensions from sprite sheet
+      this.width = 160;
+      this.height = 119;
+      this.image = document.getElementById("enemyImage");
+      this.x = this.gameWidth; // enemy appear from the left
+      this.y = this.gameHeight - this.height; // vertical coordinate
+      this.frameX = 0;
+    }
+    draw(context) {
+      // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight). image, dx, dy are compulsory parameters. the rest are optional
+      context.drawImage(
+        this.image,
+        this.frameX * this.width,
+        0, // sy = 0 since sprite sheet only got 1 row
+        this.width,
+        this.height,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
+    }
+    update() {
+      this.x--;
+    }
+  }
+
+  // Function to generate enemies
+  function handleEnemies(deltaTime) {
+    if (enemyTimer > enemyInterval) {
+      // Instantiating enemy objects and pushing them into an array
+      enemies.push(new Enemy(canvas.width, canvas.height)); // instantiate enemy object
+      enemyTimer = 0; // reset enemyTimer to 0
+    } else {
+      enemyTimer += deltaTime; // else, keep incrementing enemyTimer by the delta time till the enemy Interval is reached
+      // incrementing as above helps to ensure that regardless of the computer (either fast or slow), the enemy object objet generated is the same
+      // faster comp will have lower deltatime since the loop runs faster, hence will need more loops to accumulate the timer
+    }
+    enemies.forEach((enemy) => {
+      enemy.draw(ctx);
+      enemy.update();
+    });
+  }
+
+  // All the width for the player, background and enemy objects are set by the canvas dimensions
   const player = new Player(canvas.width, canvas.height);
   const background = new Background(canvas.width, canvas.height);
+  const enemy1 = new Enemy(canvas.width, canvas.height);
 
-  function animate() {
+  let lastTime = 0;
+
+  //  Setting up the timer for enemy spawns
+  let enemyTimer = 0;
+  let enemyInterval = 1000; // setting the interval on how many seconds before enemy object is spawned
+
+  function animate(timeStamp) {
+    // FPS
+    const deltaTime = timeStamp - lastTime;
+    // timeStamp is available in requestAnimationFrame
+    lastTime = timeStamp; // set the timeStamp to lastTime and use this value as parameter for the animate() function
+    // console.log(deltaTime);
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw(ctx); // need to draw background first before drawing the player character
     background.update();
 
     player.draw(ctx);
     player.update(input);
+
+    // enemy1.draw(ctx); // call this inside the handleEnemies function to generate constant stream of enemy objects
+    // enemy1.update();
+    handleEnemies(deltaTime); // use deltaTime to trigger enemies
     requestAnimationFrame(animate);
   }
-  animate();
+  animate(0); // set parameter for timeStamp to 0 for the first time running this animate loop
 });

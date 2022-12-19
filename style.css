@@ -11,4 +11,10 @@ body {
   border: white solid;
 }
 
+#playerImage,
+#backgroundImage,
+#enemyImage {
+  display: none;
+}
+
 /* MODIFY ends here */
