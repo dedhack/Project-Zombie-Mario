@@ -50,11 +50,13 @@ window.addEventListener("load", function () {
       this.width = 200; // sprite width
       this.height = 200; // sprite height
       this.x = 0;
-      this.y = 0;
+      this.y = 520;
       this.image = document.getElementById("playerImage");
       this.frameX = 0; // the frame within the sprite sheet
       this.frameY = 0;
       this.speed = 0; // positive will move the sprite right, negative left. this value is changed in the update() method
+      this.velocityY = 0;
+      this.gravity = 1;
     }
     // specify which context we want to draw on. in case future changes involve multiple canvas contexts
     draw(context) {
@@ -76,21 +78,44 @@ window.addEventListener("load", function () {
     }
     update(input) {
       // takes in the input object to update the player movement
-      this.x += this.speed;
       // if input of arrowkey exist, it's index will not be -1
       if (input.keys.indexOf("ArrowRight") > -1) {
         this.speed = 5;
       } else if (input.keys.indexOf("ArrowLeft") > -1) {
         this.speed = -5;
         console.log(this.x);
+      } else if (input.keys.indexOf("ArrowUp") > -1 && this.onGround()) {
+        this.velocityY -= 22;
       } else {
         this.speed = 0;
       }
+
+      // Horizontal movement
+      this.x += this.speed;
+
       if (this.x < 0) {
         this.x = 0; // limits movement in the x-direction to the left.
       } else if (this.x > this.gameWidth - this.width) {
         this.x = this.gameWidth - this.width; // limits movement in the x-direction to the right
       }
+      // Vertical movement
+      this.y += this.velocityY;
+      // If player character is not on the ground, allow the idea of gravity pulling him down
+      if (this.onGround() === false) {
+        this.velocityY += this.gravity;
+        this.frameY = 1; // change the sprite to jumping frame
+      } else {
+        this.velocityY = 0; // limit movement in the y-direction.
+        this.frameY = 0; // reset frame to on the ground
+      }
+      // to further limit movement in the y-direction after jumping too high, and causing the character to partially go lower than the ground
+      if (this.y > this.gameHeight - this.height) {
+        this.y = this.gameHeight - this.height;
+      }
+    }
+    // To check if player is on the ground
+    onGround() {
+      return this.y >= this.gameHeight - this.height; // returns a boolean true or false if player character on the ground
     }
   }
 
