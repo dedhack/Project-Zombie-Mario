@@ -14,7 +14,7 @@ const scaledCanvas = {
 
 ////////////////////////////////
 // Global variables
-const gravity = 1.5; //FIXME: can edit this to decrease the height of the character jumping
+const gravity = 0.5; //FIXME: can edit this to decrease the height of the character jumping
 
 ////////////////////////////////
 // Collision Block Creation
@@ -70,9 +70,11 @@ platformCollisions2D.forEach((row, rowIndex) => {
 const player = new Player({
   position: {
     x: 100,
-    y: 0,
+    y: 300,
   },
   collisionBlocks: collisionBlocks,
+  imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
+  frameRate: 8, // TODO: frame rate of current player sprite
 });
 
 console.log(typeof collisionBlocks);
@@ -139,7 +141,7 @@ window.addEventListener("keydown", (e) => {
       player.velocity.x = 1;
       break;
     case "w":
-      player.velocity.y = -15;
+      player.velocity.y = -5; // controls the jump height
       break;
     case "s":
       //   player.velocity.x = 1;
