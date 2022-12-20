@@ -5,6 +5,10 @@ window.addEventListener("load", function () {
   canvas.height = 720;
   let enemies = []; // set enemies to an empty array
 
+  // Score tracker
+  let score = 0;
+  let gameOver = false;
+
   // class to handle input from users
   class InputHandler {
     constructor() {
@@ -13,6 +17,8 @@ window.addEventListener("load", function () {
       // Lexical scoping.
       window.addEventListener("keydown", (e) => {
         // if indexOf(e.key) === -1, it means that the element is not present inside the array
+        // TODO: include movement using WASD keys
+        // TODO: Attack buttons using space
         if (
           (e.key === "ArrowDown" ||
             e.key === "ArrowUp" ||
@@ -67,9 +73,9 @@ window.addEventListener("load", function () {
     }
     // specify which context we want to draw on. in case future changes involve multiple canvas contexts
     draw(context) {
-      //   context.fillStyle = "white"; // background set to white for visibility
       // position x and y of sprite in the context. Width and height of the sprite
       //   context.fillRect(this.x, this.y, this.width, this.height);
+
       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight). image, dx, dy are compulsory parameters. the rest are optional
       context.drawImage(
         this.image,
@@ -83,8 +89,16 @@ window.addEventListener("load", function () {
         this.height
       );
     }
-    update(input, deltaTime) {
-      // takes in the input object to update the player movement
+    update(input, deltaTime, enemies) {
+      // collision detection with enemy sprite
+      enemies.forEach((enemy) => {
+        const dx = enemy.x + enemy.width / 2 - (this.x + this.width / 2); // distance between the x position of player and enemy
+        const dy = enemy.y + enemy.width / 2 - (this.y + this.height / 2); // distance between the y position of player and enemy
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < enemy.width / 2 + this.width / 2) {
+          gameOver = true;
+        }
+      });
 
       // sprite animation FPS
       if (this.frameTimer > this.frameInterval) {
@@ -217,7 +231,11 @@ window.addEventListener("load", function () {
         this.frameTimer += deltaTime; // else keep adding deltaTime to frameTimer until the threshold of frameInterval is reached
       }
       this.x -= this.speed;
-      if (this.x < 0 - this.width) this.markedForDeletion = true; // once enemy passes the left of x-axis, set it to be marked for deletion
+      if (this.x < 0 - this.width) {
+        this.markedForDeletion = true; // once enemy passes the left of x-axis, set it to be marked for deletion
+        // Points added when enemy passes to the left of canvas
+        score++;
+      }
     }
   }
 
@@ -240,6 +258,32 @@ window.addEventListener("load", function () {
 
     // update the enemy array and remove enemy objects that have gone past the screen x-axis
     enemies = enemies.filter((enemy) => !enemy.markedForDeletion); //
+  }
+
+  ////////////////////////////////////////////////////////////////
+  // Display Status Text
+  ////////////////////////////////////////////////////////////////
+
+  function displayStatusText(context) {
+    context.fillStyle = "black";
+    context.font = "40px Helvetica";
+    // READ: fillText(text, x coord, y coord)
+    context.fillText("score: " + score, 20, 50);
+    if (gameOver) {
+      context.textAlign = "center";
+      context.fillStyle = "black";
+      context.fillText(
+        "GAME OVER, try again!",
+        canvas.width / 2,
+        canvas.height / 2
+      );
+      context.fillStyle = "white";
+      context.fillText(
+        "GAME OVER, try again!",
+        canvas.width / 2,
+        canvas.height / 2 + 2
+      );
+    }
   }
 
   // All the width for the player, background and enemy objects are set by the canvas dimensions
@@ -266,12 +310,13 @@ window.addEventListener("load", function () {
     background.update();
 
     player.draw(ctx);
-    player.update(input, deltaTime);
+    player.update(input, deltaTime, enemies);
 
     // enemy1.draw(ctx); // call this inside the handleEnemies function to generate constant stream of enemy objects
     // enemy1.update();
     handleEnemies(deltaTime); // use deltaTime to trigger enemies
-    requestAnimationFrame(animate);
+    displayStatusText(ctx);
+    if (!gameOver) requestAnimationFrame(animate);
   }
   animate(0); // set parameter for timeStamp to 0 for the first time running this animate loop
 });

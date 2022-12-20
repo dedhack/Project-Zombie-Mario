@@ -1,20 +1,3 @@
-/* TODO: Modify the below CSS */
 body {
   background: black;
 }
-
-#canvas1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: white solid;
-}
-
-#playerImage,
-#backgroundImage,
-#enemyImage {
-  display: none;
-}
-
-/* MODIFY ends here */

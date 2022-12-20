@@ -1,0 +1,63 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background/background.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Mario Zombie.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/Fruits/Fruits.tsx": {
+            "dynamicWrapping": false
+        },
+        "tilesets/Fruits/apple.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/Fruits/background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/Pixel Art.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/Terrain (16x16).tsx": {
+            "dynamicWrapping": false
+        }
+    },
+    "last.imagePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background",
+    "map.height": 11,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 60,
+    "openFiles": [
+    ],
+    "project": "Mario_Zombie.tiled-project",
+    "recentFiles": [
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background/background.tsx",
+        "tilesets/Fruits/background.tsx",
+        "tilesets/Fruits/apple.tsx",
+        "tilesets/Pixel Art.tsx",
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Mario Zombie.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.type": 0
+}
