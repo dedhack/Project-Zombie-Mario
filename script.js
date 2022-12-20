@@ -14,7 +14,7 @@ const scaledCanvas = {
 
 ////////////////////////////////
 // Global variables
-const gravity = 0.5;
+const gravity = 1.5; //FIXME: can edit this to decrease the height of the character jumping
 
 ////////////////////////////////
 // Collision Block Creation
@@ -30,7 +30,6 @@ const collisionBlocks = [];
 floorCollisions2D.forEach((row, ycoord) => {
   row.forEach((symbol, xcoord) => {
     if (symbol === 202) {
-      console.log("draw something here");
       collisionBlocks.push(
         new CollisionBlock({
           position: {
@@ -66,18 +65,17 @@ platformCollisions2D.forEach((row, rowIndex) => {
   });
 });
 
-// console.log(collisionBlocks);
-// console.log(platformCollisionBlocks)
-
 ////////////////////////////////
 // Instantiate player object
 const player = new Player({
   position: {
-    x: 500,
+    x: 100,
     y: 0,
   },
-  collisionBlocks: collisionBlocks
+  collisionBlocks: collisionBlocks,
 });
+
+console.log(typeof collisionBlocks);
 
 const keys = {
   d: {
@@ -118,15 +116,14 @@ function animate() {
   platformCollisionBlocks.forEach((platformCollisionBlock) => {
     platformCollisionBlock.update();
   });
-
-  ctx.restore();
-
   player.update();
 
   // Reset movement when key is not pressed
   player.velocity.x = 0;
   if (keys.d.pressed) player.velocity.x = 5;
   else if (keys.a.pressed) player.velocity.x = -5;
+
+  ctx.restore();
 }
 
 animate();
