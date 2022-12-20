@@ -14,10 +14,14 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 
 - extends the Sprite class
 
-* switchSprite()
+-switchSprite()
 
 - Explain the logic on how we switch between sprites. Include the update done in the movement event listener
 - Explain the frameBuffer
+
+* camerabox()
+
+- the positions x and y is the character x and y coords to ensure that the view of the area follows the player
 
 2. CollisionBlock Class
 

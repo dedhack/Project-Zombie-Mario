@@ -38,6 +38,14 @@ class Player extends Sprite {
 
       this.animations[key].image = image;
     }
+    this.camerabox = {
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      width: 200,
+      height: 80,
+    };
   }
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
@@ -47,10 +55,37 @@ class Player extends Sprite {
     this.frameBuffer = this.animations[key].frameBuffer;
     this.frameRate = this.animations[key].frameRate;
   }
+  updateCamerabox() {
+    this.camerabox = {
+      position: {
+        x: this.position.x - 50, // FIXME: play around with the value to center the camerabox to the player
+        y: this.position.y,
+      },
+      width: 200,
+      height: 80,
+    };
+  }
+  shouldPanCameraToTheLeft() {
+    const cameraBoxRightSide = this.camerabox.position.x + this.camerabox.width;
+
+    // FIXME: Need to divide canvas.width by 4 due to the scale factor. Should make the scale factor a global variable
+    if (cameraboxRightSide >= canvas.width / 4) {
+      console.log("PanCameraToTheLeft");
+    }
+  }
 
   update() {
     this.updateFrames();
     this.updateHitbox();
+    this.updateCamerabox();
+    // draw out camerabox
+    ctx.fillStyle = "rgba(0,0,255,0.2";
+    ctx.fillRect(
+      this.camerabox.position.x,
+      this.camerabox.position.y,
+      this.camerabox.width,
+      this.camerabox.height
+    );
 
     // draws out image box
     // ctx.fillStyle = "rgba(0,255,0,0.2";
@@ -86,19 +121,17 @@ class Player extends Sprite {
   }
 
   checkForHorizontalCollisions() {
-    for (let i = 0; i < this.platformCollisionBlocks.length; i++) {
-      const platformCollisionBlock = this.platformCollisionBlocks[i];
+    for (let i = 0; i < this.collisionBlocks.length; i++) {
+      const collisionBlock = this.collisionBlocks[i];
 
-      if (
-        collision({ object1: this.hitbox, object2: platformCollisionBlock })
-      ) {
+      if (collision({ object1: this.hitbox, object2: collisionBlock })) {
         // movement to the right
         if (this.velocity.x > 0) {
           this.velocity.x = 0;
 
           const offset =
             this.hitbox.position.x - this.position.x + this.hitbox.width;
-          this.position.x = platformCollisionBlock.position.x - offset - 0.01;
+          this.position.x = collisionBlock.position.x - offset - 0.01;
           break;
         }
         // movement to the left
@@ -107,10 +140,7 @@ class Player extends Sprite {
           const offset = this.hitbox.position.x - this.position.x;
 
           this.position.x =
-            platformCollisionBlock.position.x +
-            platformCollisionBlock.width -
-            offset +
-            0.01;
+            collisionBlock.position.x + collisionBlock.width - offset + 0.01;
           break;
         }
       }
