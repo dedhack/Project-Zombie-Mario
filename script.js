@@ -89,7 +89,32 @@ const player = new Player({
     Jump: {
       imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
       frameRate: 2, // TODO: frame rate of current player sprite
-      frameBuffer: 3,
+      frameBuffer: 5,
+    },
+    Fall: {
+      imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
+      frameRate: 2, // TODO: frame rate of current player sprite
+      frameBuffer: 5,
+    },
+    FallLeft: {
+      imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
+      frameRate: 2, // TODO: frame rate of current player sprite
+      frameBuffer: 5,
+    },
+    RunLeft: {
+      imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
+      frameRate: 8, // TODO: frame rate of current player sprite
+      frameBuffer: 7,
+    },
+    IdleLeft: {
+      imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
+      frameRate: 8, // TODO: frame rate of current player sprite
+      frameBuffer: 5,
+    },
+    JumpLeft: {
+      imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
+      frameRate: 2, // TODO: frame rate of current player sprite
+      frameBuffer: 5,
     },
   },
 });
@@ -142,9 +167,23 @@ function animate() {
   if (keys.d.pressed) {
     player.switchSprite("Run");
     player.velocity.x = 2;
-  } else if (keys.a.pressed) player.velocity.x = -2;
-  else if (player.velocity.y === 0) {
-    player.switchSprite("Idle");
+    player.lastDirection = "right";
+  } else if (keys.a.pressed) {
+    player.switchSprite("RunLeft");
+    player.velocity.x = -2;
+    player.lastDirection = "left";
+  } else if (player.velocity.y === 0) {
+    if (player.lastDirection === "right") player.switchSprite("Idle");
+    else player.switchSprite("IdleLeft");
+  }
+
+  // switch sprite to jump sprite if y velocity is negative i.e. moving up
+  if (player.velocity.y < 0) {
+    if (player.lastDirection === "right") player.switchSprite("Jump");
+    else player.switchSprite("JumpLeft"); // TODO: animation not jumping correctly to the right
+  } else if (player.velocity.y > 0) {
+    if (player.lastDirection.y === "right") player.switchSprite("FallRight");
+    else player.switchSprite("FallLeft");
   }
 
   ctx.restore();

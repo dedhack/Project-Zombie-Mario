@@ -10,9 +10,11 @@ class Sprite {
   }) {
     this.position = position;
     this.image = new Image();
+    this.loaded = false; // set to false that image has been loaded
     this.image.onload = () => {
       this.width = (this.image.width / this.frameRate) * this.scale;
       this.height = this.image.height * this.scale;
+      this.loaded = true; // set to true that image has been loaded
     };
     this.image.src = imageSrc;
 

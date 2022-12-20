@@ -28,6 +28,7 @@ class Player extends Sprite {
     };
 
     this.animations = animations;
+    this.lastDirection = "right";
     for (let key in this.animations) {
       const image = new Image();
       image.src = this.animations[key].imageSrc;
@@ -36,7 +37,7 @@ class Player extends Sprite {
     }
   }
   switchSprite(key) {
-    if (this.image === this.animations[key]) return;
+    if (this.image === this.animations[key] || !this.loaded) return;
 
     this.image = this.animations[key].image;
     this.frameBuffer = this.animations[key].frameBuffer;
@@ -48,17 +49,17 @@ class Player extends Sprite {
     this.updateHitbox();
 
     // draws out image box
-    ctx.fillStyle = "rgba(0,255,0,0.2";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // ctx.fillStyle = "rgba(0,255,0,0.2";
+    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // draw out hitbox
-    ctx.fillStyle = "rgba(255,0,0,0.2";
-    ctx.fillRect(
-      this.hitbox.position.x,
-      this.hitbox.position.y,
-      this.hitbox.width,
-      this.hitbox.height
-    );
+    // // draw out hitbox
+    // ctx.fillStyle = "rgba(255,0,0,0.2";
+    // ctx.fillRect(
+    //   this.hitbox.position.x,
+    //   this.hitbox.position.y,
+    //   this.hitbox.width,
+    //   this.hitbox.height
+    // );
 
     this.draw();
 
@@ -108,8 +109,8 @@ class Player extends Sprite {
   }
 
   applyGravity() {
-    this.position.y += this.velocity.y;
     this.velocity.y += gravity; // increase velocity by adding gravity for each update() loop
+    this.position.y += this.velocity.y;
   }
   checkForVerticalCollisions() {
     for (let i = 0; i < this.collisionBlocks.length; i++) {
