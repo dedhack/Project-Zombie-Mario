@@ -1,10 +1,11 @@
 ////////////////////////////////
 // Collision Block Class
 class CollisionBlock {
-  constructor({ position }) {
+  // set default height to 16 because our tiles are 16 by 16
+  constructor({ position, height = 16 }) {
     this.position = position;
     this.width = 16;
-    this.height = 16;
+    this.height = height;
   }
   draw() {
     ctx.fillStyle = "rgba(255,0,0,0.5)";

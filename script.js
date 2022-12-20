@@ -14,7 +14,7 @@ const scaledCanvas = {
 
 ////////////////////////////////
 // Global variables
-const gravity = 0.5; //FIXME: can edit this to decrease the height of the character jumping
+const gravity = 0.1; //FIXME: can edit this to decrease the height of the character jumping
 
 ////////////////////////////////
 // Collision Block Creation
@@ -59,6 +59,7 @@ platformCollisions2D.forEach((row, rowIndex) => {
             x: colIndex * 16, // 16px is the size of the block
             y: rowIndex * 16, // 16px is the size of the block
           },
+          height: 4,
         })
       );
     }
@@ -69,10 +70,13 @@ platformCollisions2D.forEach((row, rowIndex) => {
 // Instantiate player object
 const player = new Player({
   position: {
+    //FIXME: To edit these values
     x: 100,
     y: 300,
   },
   collisionBlocks: collisionBlocks,
+  platformCollisionBlocks: platformCollisionBlocks,
+
   imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
   frameRate: 8, // TODO: frame rate of current player sprite
   animations: {
@@ -119,8 +123,7 @@ const player = new Player({
   },
 });
 
-console.log(typeof collisionBlocks);
-
+// FIXME: Add documentation
 const keys = {
   d: {
     pressed: false,
@@ -130,6 +133,7 @@ const keys = {
   },
 };
 
+// Instantiate background sprite
 const background = new Sprite({
   position: {
     x: 0,
@@ -141,6 +145,7 @@ const background = new Sprite({
 function animate() {
   window.requestAnimationFrame(animate); // function to run repeatedly
 
+  // FIXME: Check if the below portion is still necessary
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -180,7 +185,7 @@ function animate() {
   // switch sprite to jump sprite if y velocity is negative i.e. moving up
   if (player.velocity.y < 0) {
     if (player.lastDirection === "right") player.switchSprite("Jump");
-    else player.switchSprite("JumpLeft"); // TODO: animation not jumping correctly to the right
+    else player.switchSprite("JumpLeft"); // FIXME: animation not jumping correctly to the right
   } else if (player.velocity.y > 0) {
     if (player.lastDirection.y === "right") player.switchSprite("FallRight");
     else player.switchSprite("FallLeft");
@@ -205,7 +210,7 @@ window.addEventListener("keydown", (e) => {
       player.velocity.x = 1;
       break;
     case "w":
-      player.velocity.y = -5; // controls the jump height
+      player.velocity.y = -4; // controls the jump height
       break;
     case "s":
       //   player.velocity.x = 1;

@@ -10,17 +10,23 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 * under this.position.x, we add/subtract an additional 0.01 to ensure the player doesn't still trigger a collision in the x-axis
 * add a break to break out of the loop to ensure we do not run the for loop unnecessarily when collision has already been detected in an earlier loop.
 
-1a.  Player Class
+1a. Player Class
 
-* extends the Sprite class
+- extends the Sprite class
 
+* switchSprite()
 
-- switchSprite()
-* Explain the logic on how we switch between sprites. Include the update done in the movement event listener
-* Explain the frameBuffer
-
+- Explain the logic on how we switch between sprites. Include the update done in the movement event listener
+- Explain the frameBuffer
 
 2. CollisionBlock Class
+
+2a. collisionBlocks
+
+2b. platformCollisionBlocks
+
+- explain why this is separate
+- this platform collision is checked in the player class, together with the floor platform within the for loop
 
 3. Collisions.js
 
@@ -34,13 +40,12 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 
 - animations:
 
-- this.loaded = false. This is to check if the image is already loaded. This is checked in the Player object switch sprite function. 
+- this.loaded = false. This is to check if the image is already loaded. This is checked in the Player object switch sprite function.
 
 - image onload(). we use the built-in onload function to check that once the image has loaded, then we pass the image width and height to the objects width and height
 - frameRate - this is simply the number of frames that we have for a particular sprite that we want to loop through
 - currentFrame - by default, we set this to 0 when instantiated. we want this to keep track of this and increment as we loop the sprite animation. we use its value to select the crop image in the sprite sheet
 - frameBuffer and elapsedFrames
-
 
 - cropbox
 
@@ -59,4 +64,13 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 * this function is used to call the custom draw() function
 
 - updateFrames()
+
 * Function is used to loop the frames for the sprite sheet
+
+5. utils.js
+
+- collision ()
+
+- platformCollision()
+
+* explain the difference between collision and platform collision
