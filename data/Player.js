@@ -1,7 +1,14 @@
 ////////////////////////////////
 // Character Class
 class Player extends Sprite {
-  constructor({ position, collisionBlocks, imageSrc, frameRate, scale = 0.5 }) {
+  constructor({
+    position,
+    collisionBlocks,
+    imageSrc,
+    frameRate,
+    scale = 0.5,
+    animations,
+  }) {
     super({ imageSrc, frameRate, scale });
     this.position = position;
     this.velocity = {
@@ -19,7 +26,23 @@ class Player extends Sprite {
       width: 10,
       height: 10,
     };
+
+    this.animations = animations;
+    for (let key in this.animations) {
+      const image = new Image();
+      image.src = this.animations[key].imageSrc;
+
+      this.animations[key].image = image;
+    }
   }
+  switchSprite(key) {
+    if (this.image === this.animations[key]) return;
+
+    this.image = this.animations[key].image;
+    this.frameBuffer = this.animations[key].frameBuffer;
+    this.frameRate = this.animations[key].frameRate;
+  }
+
   update() {
     this.updateFrames();
     this.updateHitbox();

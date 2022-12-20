@@ -10,9 +10,14 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 * under this.position.x, we add/subtract an additional 0.01 to ensure the player doesn't still trigger a collision in the x-axis
 * add a break to break out of the loop to ensure we do not run the for loop unnecessarily when collision has already been detected in an earlier loop.
 
-- Player Class
+1a.  Player Class
 
 * extends the Sprite class
+
+
+- switchSprite()
+* Explain the frameBuffer
+
 
 2. CollisionBlock Class
 
@@ -25,6 +30,9 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 - position:
 - imageSrc:
 - frameRate = 1. By default we set it to 1 frame. This is to account for Sprite/images that only have 1 frame.
+
+- animations:
+
 
 - image onload(). we use the built-in onload function to check that once the image has loaded, then we pass the image width and height to the objects width and height
 - frameRate - this is simply the number of frames that we have for a particular sprite that we want to loop through

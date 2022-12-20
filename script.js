@@ -75,6 +75,23 @@ const player = new Player({
   collisionBlocks: collisionBlocks,
   imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
   frameRate: 8, // TODO: frame rate of current player sprite
+  animations: {
+    Idle: {
+      imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
+      frameRate: 8, // TODO: frame rate of current player sprite
+      frameBuffer: 3,
+    },
+    Run: {
+      imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
+      frameRate: 8, // TODO: frame rate of current player sprite
+      frameBuffer: 7,
+    },
+    Jump: {
+      imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
+      frameRate: 2, // TODO: frame rate of current player sprite
+      frameBuffer: 3,
+    },
+  },
 });
 
 console.log(typeof collisionBlocks);
@@ -122,13 +139,21 @@ function animate() {
 
   // Reset movement when key is not pressed
   player.velocity.x = 0;
-  if (keys.d.pressed) player.velocity.x = 5;
-  else if (keys.a.pressed) player.velocity.x = -5;
+  if (keys.d.pressed) {
+    player.switchSprite("Run");
+    player.velocity.x = 2;
+  } else if (keys.a.pressed) player.velocity.x = -2;
+  else if (player.velocity.y === 0) {
+    player.switchSprite("Idle");
+  }
 
   ctx.restore();
 }
 
 animate();
+
+////////////////////////////////
+// Key Inputs
 
 window.addEventListener("keydown", (e) => {
   switch (event.key) {
