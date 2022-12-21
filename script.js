@@ -251,10 +251,15 @@ function animate() {
   // switch sprite to jump or fall depending on y-velocity
   if (player.velocity.y < 0) {
     if (player.lastDirection === "right") player.switchSprite("Jump");
-    else player.switchSprite("JumpLeft"); // FIXME: animation not jumping correctly to the right
+    else player.switchSprite("JumpLeft");
   } else if (player.velocity.y > 0) {
-    if (player.lastDirection.y === "right") player.switchSprite("Fall");
-    else player.switchSprite("FallLeft");
+    if (player.lastDirection === "right") {
+      player.switchSprite("Fall");
+      console.log("Fall right");
+    } else {
+      player.switchSprite("FallLeft");
+      console.log("Fall left");
+    }
   }
 
   ctx.restore();
