@@ -116,8 +116,8 @@ class Player extends Sprite {
   updateAttackbox() {
     this.attackBox = {
       position: {
-        x: this.hitbox.position.x,
-        y: this.hitbox.position.y / 2,
+        x: this.hitbox.position.x + this.hitbox.width,
+        y: this.hitbox.position.y + this.hitbox.height / 2,
       },
       width: 10,
       height: 5,
