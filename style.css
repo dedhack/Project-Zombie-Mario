@@ -31,13 +31,14 @@ div {
   width: 100%;
 }
 #timer {
-  background-color: red;
+  background-color: grey;
   /* display: inline-block; */
   width: 30%;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 3rem;
 }
 
 #results {
@@ -52,6 +53,16 @@ div {
   left: 0;
   display: flex;
   font-size: xx-large;
+}
+
+#restart {
+  background-color: red;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+  position: absolute;
+  display: none;
+  align-items: center;
 }
 
 #canvas {

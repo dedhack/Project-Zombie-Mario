@@ -229,7 +229,7 @@ const keys = {
 //////////////////
 // Score Tracking & Time Tracking
 let score = 0;
-let timer = 10;
+let timer = 2;
 let timerId;
 function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
@@ -238,20 +238,30 @@ function decreaseTimer() {
     // score++;
     document.querySelector("#timer").innerHTML = "TIME: " + timer;
   }
+  endGame();
+}
+decreaseTimer();
+
+function endGame() {
   if (score === 10) {
     clearTimeout();
     document.querySelector("#results").innerHTML = "YOU WIN";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
+    restartGame();
   } else if (timer === 0 && score < 10) {
     clearTimeout();
     document.querySelector("#results").innerHTML = "GAMEOVER";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
+    restartGame();
   }
 }
-decreaseTimer();
-
+function restartGame() {
+  const restartBtn = document.getElementById("restart");
+  restartBtn.style.display = "flex";
+  restartBtn.addEventListener("click", () => document.location.reload());
+}
 ///////////////////////////
 // Animation Loop Function
 
