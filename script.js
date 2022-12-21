@@ -82,48 +82,48 @@ const player = new Player({
   collisionBlocks: collisionBlocks,
   platformCollisionBlocks: platformCollisionBlocks,
 
-  imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
-  frameRate: 8, // TODO: frame rate of current player sprite
+  imageSrc: "./img/Adventurer/Idle.png", // TODO: change out this image source
+  frameRate: 4, // TODO: frame rate of current player sprite
   animations: {
     Idle: {
-      imageSrc: "./img/warrior/Idle.png", // TODO: change out this image source
-      frameRate: 8, // TODO: frame rate of current player sprite
-      frameBuffer: 3,
+      imageSrc: "./img/Adventurer/Idle.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 10,
     },
     Run: {
-      imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
-      frameRate: 8, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Run.png", // TODO: change out this image source
+      frameRate: 5, // TODO: frame rate of current player sprite
       frameBuffer: 7,
     },
     Jump: {
-      imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
-      frameRate: 2, // TODO: frame rate of current player sprite
-      frameBuffer: 5,
+      imageSrc: "./img/Adventurer/Jump.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 7,
     },
     Fall: {
-      imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
+      imageSrc: "./img/Adventurer/Fall.png", // TODO: change out this image source
       frameRate: 2, // TODO: frame rate of current player sprite
       frameBuffer: 5,
     },
     FallLeft: {
-      imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
+      imageSrc: "./img/Adventurer/FallLeft.png", // TODO: change out this image source
       frameRate: 2, // TODO: frame rate of current player sprite
-      frameBuffer: 5,
+      frameBuffer: 10,
     },
     RunLeft: {
-      imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
-      frameRate: 8, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/RunLeft.png", // TODO: change out this image source
+      frameRate: 5, // TODO: frame rate of current player sprite
       frameBuffer: 7,
     },
     IdleLeft: {
-      imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
-      frameRate: 8, // TODO: frame rate of current player sprite
-      frameBuffer: 5,
+      imageSrc: "./img/Adventurer/IdleLeft.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 10,
     },
     JumpLeft: {
-      imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
-      frameRate: 2, // TODO: frame rate of current player sprite
-      frameBuffer: 5,
+      imageSrc: "./img/Adventurer/JumpLeft.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 7,
     },
   },
   // bulletController, // FIXME: remove

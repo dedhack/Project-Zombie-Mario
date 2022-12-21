@@ -7,7 +7,7 @@ class Player extends Sprite {
     platformCollisionBlocks,
     imageSrc,
     frameRate,
-    scale = 0.5,
+    scale = 0.9,
     animations,
   }) {
     super({ imageSrc, frameRate, scale });
@@ -26,8 +26,8 @@ class Player extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      width: 10,
-      height: 10,
+      width: 0, // only to instantiate
+      height: 0,
     };
 
     this.animations = animations;
@@ -79,8 +79,8 @@ class Player extends Sprite {
   updateHitbox() {
     this.hitbox = {
       position: {
-        x: this.position.x + 35,
-        y: this.position.y + 26,
+        x: this.position.x + 15,
+        y: this.position.y + 5,
       },
       width: 14,
       height: 27,
