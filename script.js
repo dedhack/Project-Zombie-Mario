@@ -70,9 +70,62 @@ platformCollisions2D.forEach((row, rowIndex) => {
 /////////////////////////////////
 // Instantiate Enemy Object
 
+const enemy1 = new Enemy({
+  position: {
+    //FIXME: To edit these values
+    x: 450,
+    y: 300,
+  },
+  collisionBlocks: collisionBlocks,
+  platformCollisionBlocks: platformCollisionBlocks,
 
-
-const enemy = new Enemy({
+  imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
+  frameRate: 4, // TODO: frame rate of current player sprite
+  animations: {
+    Idle: {
+      imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 1,
+    },
+    // FIXME: To add the other animation frames later
+    // Run: {
+    //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 7,
+    // },
+    // Jump: {
+    //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // Fall: {
+    //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // FallLeft: {
+    //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // RunLeft: {
+    //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 7,
+    // },
+    // IdleLeft: {
+    //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // JumpLeft: {
+    //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+  },
+});
+const enemy2 = new Enemy({
   position: {
     //FIXME: To edit these values
     x: 400,
@@ -128,9 +181,9 @@ const enemy = new Enemy({
   },
 });
 
-const enemyHitboxes = [];
-enemyHitboxes.push(enemy.hitbox);
-console.log(typeof enemyHitboxes[0].position.x);
+const enemyArray = [];
+enemyArray.push(enemy1);
+enemyArray.push(enemy2);
 
 ////////////////////////////////
 // Instantiate player object
@@ -191,8 +244,6 @@ const player = new Player({
       frameBuffer: 16,
     },
   },
-  enemyHitboxes,
-
   // bulletController, // FIXME: remove
 });
 
@@ -242,17 +293,24 @@ function animate() {
     platformCollisionBlock.update();
   });
 
-  enemy.update();
   player.update();
 
   // COLLISION EXPERT BROOOOOOOO
   // Player and enemy collision
-  if (
-    player.hitbox.position.x + player.hitbox.width >= enemy.hitbox.position.x &&
-    player.hitbox.position.x <= enemy.hitbox.position.x + enemy.width &&
-    player.hitbox.position.y + player.hitbox.height >= enemy.hitbox.position.y) {
-      console.log("COLLISION EXPERT BRO")
-    } 
+  // run a for loop to check over all enemy blocks
+  enemyArray.forEach((enemy) => {
+    enemy.update();
+    if (
+      player.hitbox.position.x + player.hitbox.width >=
+        enemy.hitbox.position.x &&
+      player.hitbox.position.x <= enemy.hitbox.position.x + enemy.width &&
+      player.hitbox.position.y + player.hitbox.height >=
+        enemy.hitbox.position.y &&
+      player.hitbox.position.y <= enemy.hitbox.position.y + enemy.height
+    ) {
+      console.log("COLLISION EXPERT BRO");
+    }
+  });
 
   // Reset movement when key is not pressed
   player.velocity.x = 0;
