@@ -53,7 +53,7 @@ for (let i = 0; i < platformCollisions.length; i += 36) {
 const platformCollisionBlocks = []; // array to store platform collision blocks object and its x and y positions
 platformCollisions2D.forEach((row, rowIndex) => {
   row.forEach((symbol, colIndex) => {
-    if (symbol === 202) {
+    if (symbol === 202 || symbol === 7638) {
       platformCollisionBlocks.push(
         new CollisionBlock({
           position: {
@@ -133,12 +133,10 @@ for (i = 0; i < 10; i++) {
       // },
     },
   });
-
   enemyArray.push(enemy);
-  console.log(`loop ${i}: ${x} ${y}`);
 }
 
-console.log(enemyArray);
+// console.log(enemyArray);
 
 const player = new Player({
   position: {
@@ -300,6 +298,8 @@ function animate() {
       player.hitbox.position.y <= enemy.hitbox.position.y + enemy.height
     ) {
       console.log("COLLISION EXPERT BRO- YOU DIED");
+      let collision = true;
+      endGame(collision);
     }
     enemy.update();
   });

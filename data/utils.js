@@ -35,14 +35,14 @@ function restartGame() {
   restartBtn.addEventListener("click", () => document.location.reload());
 }
 
-function endGame() {
+function endGame(collision) {
   if (score === 10) {
     clearTimeout();
     document.querySelector("#results").innerHTML = "YOU WIN";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
     restartGame();
-  } else if (timer === 0 && score < 10) {
+  } else if ((timer === 0 && score < 10) || collision === true) {
     clearTimeout();
     document.querySelector("#results").innerHTML = "GAMEOVER";
     document.querySelector("#results").style.display = "flex";
