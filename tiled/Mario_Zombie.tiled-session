@@ -27,6 +27,17 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/collision.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx": {
+            "scale": 1.01,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 340.09900990099004,
+                "y": 220.79207920792078
+            }
+        },
         "tilesets/Fruits/Fruits.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -52,12 +63,13 @@
         }
     },
     "last.exportedFilePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario",
-    "last.imagePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/assets",
+    "last.imagePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Fantasy Woodlands/SET1/_PNG",
     "map.lastUsedExportFilter": "JavaScript map files (*.js)",
     "openFiles": [
     ],
     "project": "Mario_Zombie.tiled-project",
     "recentFiles": [
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/background.tsx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background/background.tsx",
         "tilesets/Fruits/Fruits.tsx",
@@ -67,5 +79,10 @@
         "tilesets/Fruits/apple.tsx",
         "tilesets/Pixel Art.tsx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Mario Zombie.tsx"
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

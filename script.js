@@ -4,7 +4,6 @@ const ctx = canvas.getContext("2d");
 ////////////////////////////////
 // Canvas
 // README: https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look
-
 canvas.width = 1152;
 canvas.height = 864;
 
@@ -125,15 +124,64 @@ const player = new Player({
   },
 });
 
-// FIXME: Add documentation
-const keys = {
-  d: {
-    pressed: false,
+/////////////////////////////////
+// Instantiate Enemy Object
+
+const enemy = new Enemy({
+  position: {
+    //FIXME: To edit these values
+    x: 400,
+    y: 300,
   },
-  a: {
-    pressed: false,
+  collisionBlocks: collisionBlocks,
+  platformCollisionBlocks: platformCollisionBlocks,
+
+  imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
+  frameRate: 4, // TODO: frame rate of current player sprite
+  animations: {
+    Idle: {
+      imageSrc: "./img/Wild Zombie/Idle.png", // TODO: change out this image source
+      frameRate: 4, // TODO: frame rate of current player sprite
+      frameBuffer: 3,
+    },
+    // FIXME: To add the other animation frames later
+    // Run: {
+    //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 7,
+    // },
+    // Jump: {
+    //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // Fall: {
+    //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // FallLeft: {
+    //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // RunLeft: {
+    //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 7,
+    // },
+    // IdleLeft: {
+    //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
+    //   frameRate: 8, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
+    // JumpLeft: {
+    //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
+    //   frameRate: 2, // TODO: frame rate of current player sprite
+    //   frameBuffer: 5,
+    // },
   },
-};
+});
 
 ////////////////////////////////
 // Instantiate background sprite and camera panning
@@ -145,19 +193,20 @@ const background = new Sprite({
   imageSrc: "./img/background.png",
 });
 
-const camera = {
-  position: {
-    x: 0,
-    y: 0,
+const keys = {
+  d: {
+    pressed: false,
+  },
+  a: {
+    pressed: false,
   },
 };
 
+///////////////////////////
+// Animation Loop Function
+
 function animate() {
   window.requestAnimationFrame(animate); // function to run repeatedly
-
-  // FIXME: Check if the below portion is still necessary
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // DOCUMENT: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save
   // context.save() saves the entire state of the canvas by pushing the current state onto a stack
@@ -176,6 +225,7 @@ function animate() {
     platformCollisionBlock.update();
   });
   player.update();
+  enemy.update();
 
   // Reset movement when key is not pressed
   player.velocity.x = 0;
@@ -183,7 +233,6 @@ function animate() {
     player.switchSprite("Run");
     player.velocity.x = 2;
     player.lastDirection = "right";
-    player.shouldPanCameraToTheLeft({ canvas, camera });
   } else if (keys.a.pressed) {
     player.switchSprite("RunLeft");
     player.velocity.x = -2;
@@ -193,12 +242,12 @@ function animate() {
     else player.switchSprite("IdleLeft");
   }
 
-  // switch sprite to jump sprite if y velocity is negative i.e. moving up
+  // switch sprite to jump or fall depending on y-velocity
   if (player.velocity.y < 0) {
     if (player.lastDirection === "right") player.switchSprite("Jump");
     else player.switchSprite("JumpLeft"); // FIXME: animation not jumping correctly to the right
   } else if (player.velocity.y > 0) {
-    if (player.lastDirection.y === "right") player.switchSprite("FallRight");
+    if (player.lastDirection.y === "right") player.switchSprite("Fall");
     else player.switchSprite("FallLeft");
   }
 
@@ -211,7 +260,7 @@ animate();
 // Key Inputs
 
 window.addEventListener("keydown", (e) => {
-  switch (event.key) {
+  switch (e.key) {
     case "a":
       keys.a.pressed = true;
       player.velocity.x = -1;
@@ -223,8 +272,8 @@ window.addEventListener("keydown", (e) => {
     case "w":
       player.velocity.y = -4; // controls the jump height
       break;
-    case "s":
-      //   player.velocity.x = 1;
+    case "Enter": //TODO: Add a downward velocity if want to consider downward attacks
+      console.log("shoot");
       break;
   }
 });

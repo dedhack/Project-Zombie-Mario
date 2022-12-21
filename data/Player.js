@@ -38,14 +38,15 @@ class Player extends Sprite {
 
       this.animations[key].image = image;
     }
-    this.camerabox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      width: 200,
-      height: 80,
-    };
+    // FIXME: no longer in use
+    // this.camerabox = {
+    //   position: {
+    //     x: this.position.x,
+    //     y: this.position.y,
+    //   },
+    //   width: 200,
+    //   height: 80,
+    // };
   }
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
@@ -55,51 +56,23 @@ class Player extends Sprite {
     this.frameBuffer = this.animations[key].frameBuffer;
     this.frameRate = this.animations[key].frameRate;
   }
-  updateCamerabox() {
-    this.camerabox = {
-      position: {
-        x: this.position.x - 50, // FIXME: play around with the value to center the camerabox to the player
-        y: this.position.y,
-      },
-      width: 200,
-      height: 80,
-    };
-  }
-  shouldPanCameraToTheLeft({ camera, canvas }) {
-    const cameraboxRightSide = this.camerabox.position.x + this.camerabox.width;
-
-    // FIXME: Need to divide canvas.width by 4 due to the scale factor. Should make the scale factor a global variable
-    if (cameraboxRightSide >= canvas.width / 4) {
-      camera.position.x -= this.velocity.x;
-      console.log("panning");
-    }
-  }
 
   update() {
     this.updateFrames();
     this.updateHitbox();
-    this.updateCamerabox();
-    // draw out camerabox
-    ctx.fillStyle = "rgba(0,0,255,0.2";
-    ctx.fillRect(
-      this.camerabox.position.x,
-      this.camerabox.position.y,
-      this.camerabox.width,
-      this.camerabox.height
-    );
 
     // draws out image box
-    // ctx.fillStyle = "rgba(0,255,0,0.2";
-    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.fillStyle = "rgba(0,255,0,0.2";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // // draw out hitbox
-    // ctx.fillStyle = "rgba(255,0,0,0.2";
-    // ctx.fillRect(
-    //   this.hitbox.position.x,
-    //   this.hitbox.position.y,
-    //   this.hitbox.width,
-    //   this.hitbox.height
-    // );
+    // draw out hitbox
+    ctx.fillStyle = "rgba(255,0,0,0.2";
+    ctx.fillRect(
+      this.hitbox.position.x,
+      this.hitbox.position.y,
+      this.hitbox.width,
+      this.hitbox.height
+    );
 
     this.draw();
 
@@ -193,7 +166,7 @@ class Player extends Sprite {
         // set the velocity.y to zero if the value is non-zero and a collision has already occurred. Prevent character from passing through blocks
         if (this.velocity.y > 0) {
           this.velocity.y = 0;
-          // to ensure that the player is positioned on top of the top of the caollision block
+          // to ensure that the player is positioned on top of the top of the collision block
           const offset =
             this.hitbox.position.y - this.position.y + this.hitbox.height;
 

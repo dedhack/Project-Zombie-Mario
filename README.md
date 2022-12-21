@@ -84,3 +84,11 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 * explain the difference between collision and platform collision
 
 
+////////////////
+ Sprite Sizing
+
+ * explain the size of the sprite
+ - size of original sprite animation file
+ - size of sprite after cropping
+ 
+ * explain why the scaling is as such

@@ -23,7 +23,7 @@ class Sprite {
     this.currentFrame = 0; // current frame is used to track on the frame that is displayed
 
     this.frameBuffer = frameBuffer;
-    this.elapsedFrames = 0; // specifies how many frames have elapsed
+    this.elapsedFrames = 0; // specifies how many frames have elapsed. set default to 0 when instantiated
 
     // scale
     this.scale = scale;
