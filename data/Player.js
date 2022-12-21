@@ -69,7 +69,7 @@ class Player extends Sprite {
   update() {
     this.updateFrames();
     this.updateHitbox();
-    this.updateAttackbox();
+    this.updateAttackbox(this.lastDirection);
 
     if (player.attacking) {
       ctx.fillStyle = "white";
@@ -115,14 +115,25 @@ class Player extends Sprite {
     };
   }
   updateAttackbox() {
-    this.attackBox = {
-      position: {
-        x: this.hitbox.position.x + this.hitbox.width,
-        y: this.hitbox.position.y + this.hitbox.height / 2,
-      },
-      width: 15,
-      height: 5,
-    };
+    if (this.lastDirection === "right") {
+      this.attackBox = {
+        position: {
+          x: this.hitbox.position.x + this.hitbox.width,
+          y: this.hitbox.position.y + this.hitbox.height / 2,
+        },
+        width: 15,
+        height: 5,
+      };
+    } else if (this.lastDirection === "left") {
+      this.attackBox = {
+        position: {
+          x: this.hitbox.position.x - this.attackBox.width,
+          y: this.hitbox.position.y + this.hitbox.height / 2,
+        },
+        width: 15,
+        height: 5,
+      };
+    }
   }
 
   checkForHorizontalCollisions() {
