@@ -88,22 +88,22 @@ const player = new Player({
     Idle: {
       imageSrc: "./img/Adventurer/Idle.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 10,
+      frameBuffer: 16,
     },
     Run: {
       imageSrc: "./img/Adventurer/Run.png", // TODO: change out this image source
       frameRate: 5, // TODO: frame rate of current player sprite
-      frameBuffer: 7,
+      frameBuffer: 10,
     },
     Jump: {
       imageSrc: "./img/Adventurer/Jump.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 7,
+      frameBuffer: 16,
     },
     Fall: {
       imageSrc: "./img/Adventurer/Fall.png", // TODO: change out this image source
       frameRate: 2, // TODO: frame rate of current player sprite
-      frameBuffer: 5,
+      frameBuffer: 10,
     },
     FallLeft: {
       imageSrc: "./img/Adventurer/FallLeft.png", // TODO: change out this image source
@@ -113,17 +113,17 @@ const player = new Player({
     RunLeft: {
       imageSrc: "./img/Adventurer/RunLeft.png", // TODO: change out this image source
       frameRate: 5, // TODO: frame rate of current player sprite
-      frameBuffer: 7,
+      frameBuffer: 10,
     },
     IdleLeft: {
       imageSrc: "./img/Adventurer/IdleLeft.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 10,
+      frameBuffer: 16,
     },
     JumpLeft: {
       imageSrc: "./img/Adventurer/JumpLeft.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 7,
+      frameBuffer: 16,
     },
   },
   // bulletController, // FIXME: remove
@@ -145,9 +145,9 @@ const enemy = new Enemy({
   frameRate: 4, // TODO: frame rate of current player sprite
   animations: {
     Idle: {
-      imageSrc: "./img/Wild Zombie/Idle.png", // TODO: change out this image source
+      imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 3,
+      frameBuffer: 1,
     },
     // FIXME: To add the other animation frames later
     // Run: {
@@ -255,10 +255,10 @@ function animate() {
   } else if (player.velocity.y > 0) {
     if (player.lastDirection === "right") {
       player.switchSprite("Fall");
-      console.log("Fall right");
+      // console.log("Fall right");
     } else {
       player.switchSprite("FallLeft");
-      console.log("Fall left");
+      // console.log("Fall left");
     }
   }
 

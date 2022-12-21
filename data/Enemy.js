@@ -78,11 +78,11 @@ class Enemy extends Sprite {
   updateHitbox() {
     this.hitbox = {
       position: {
-        x: this.position.x + 18,
-        y: this.position.y + 26,
+        x: this.position.x + 4,
+        y: this.position.y + 0,
       },
-      width: 16,
-      height: 27,
+      width: 13,
+      height: 24,
     };
   }
 
