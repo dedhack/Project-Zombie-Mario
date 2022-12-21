@@ -1,7 +1,59 @@
+* {
+  /* removes padding from all elements */
+  box-sizing: border-box;
+}
 body {
-  background: black;
+  /* background: red; */
 }
 
 div {
-  text-align: center;
+  /* text-align: center; */
+}
+
+#container {
+  position: relative;
+  /* display as inline block so the entire container is within the child size i.e. canvas */
+  display: inline-block;
+}
+
+#top-banner {
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+}
+
+.empty {
+  height: 30px;
+  width: 100%;
+}
+#timer {
+  background-color: red;
+  /* display: inline-block; */
+  width: 30%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#results {
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+}
+
+#canvas {
+  width: 1152px;
+  height: 864px;
+  padding: 0%;
 }

@@ -203,7 +203,6 @@ const player = new Player({
       frameBuffer: 15,
     },
   },
-  // bulletController, // FIXME: remove
 });
 
 ////////////////////////////////
@@ -216,6 +215,8 @@ const background = new Sprite({
   imageSrc: "./img/background.png",
 });
 
+///////////////
+// Keys array
 const keys = {
   d: {
     pressed: false,
@@ -225,6 +226,31 @@ const keys = {
   },
 };
 
+//////////////////
+// Score Tracking & Time Tracking
+let score = 8;
+let timer = 5;
+let timerId;
+function decreaseTimer() {
+  timerId = setTimeout(decreaseTimer, 1000);
+  if (timer > 0) {
+    timer--;
+    // score++;
+    document.querySelector("#timer").innerHTML = "TIME: " + timer;
+  }
+  if (score === 10) {
+    clearTimeout();
+    document.querySelector("#results").innerHTML = "WIN";
+    document.querySelector("#results").style.display = "flex";
+    console.log("win");
+  } else if (timer === 0 && score < 10) {
+    clearTimeout();
+    document.querySelector("#results").innerHTML = "GAMEOVER";
+    document.querySelector("#results").style.display = "flex";
+    console.log("GAMEOVER");
+  }
+}
+decreaseTimer();
 ///////////////////////////
 // Animation Loop Function
 
@@ -235,7 +261,6 @@ function animate() {
   // context.save() saves the entire state of the canvas by pushing the current state onto a stack
   ctx.save(); //
   ctx.scale(2, 2); //TODO: Include this inside the readme document
-  //   ctx.translate(0, -background.image.height + scaledCanvas.height); //FIXME: Remove this since we no longer using translate to move around the canvas
   background.update();
   ////////////////////////////////////////////////////////////////
   // TODO: Explain collisionBlocks need to be rendered before context is restored
@@ -244,13 +269,13 @@ function animate() {
   //   collisionBlock.update();
   // });
 
-  // Platform collision block rendering
-  platformCollisionBlocks.forEach((platformCollisionBlock) => {
-    platformCollisionBlock.update();
-  });
-  platformCollisionBlocks.forEach((platformCollisionBlock) => {
-    platformCollisionBlock.update();
-  });
+  // Platform collision block rendering by calling update() which calls draw()
+  // platformCollisionBlocks.forEach((platformCollisionBlock) => {
+  //   platformCollisionBlock.draw();
+  // });
+  // collisionBlocks.forEach((collisionBlock) => {
+  //   collisionBlock.draw();
+  // });
 
   player.update();
 
@@ -270,8 +295,8 @@ function animate() {
         console.log("pop enemy out of array!");
         player.attacking = false;
         enemyArray.splice(index, 1);
-        // enemy.update();
-        console.log(index);
+        score++;
+        console.log(score);
       }
     }
 
@@ -285,7 +310,7 @@ function animate() {
     ) {
       console.log("COLLISION EXPERT BRO- YOU DIED");
     }
-    enemy.update()
+    enemy.update();
   });
 
   // Reset movement when key is not pressed
@@ -302,9 +327,13 @@ function animate() {
     if (player.lastDirection === "right") player.switchSprite("Idle");
     else player.switchSprite("IdleLeft");
   }
-  if (player.attacking) {
+
+  // Attacking directions
+  if (player.attacking && player.lastDirection === "right") {
     player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
     console.log("attacking");
+  } else if (player.attacking && player.lastDirection === "left") {
+    console.log("attack left");
   }
 
   // switch sprite to jump or fall depending on y-velocity
