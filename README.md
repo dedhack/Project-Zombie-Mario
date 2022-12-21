@@ -83,12 +83,23 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 
 * explain the difference between collision and platform collision
 
-
 ////////////////
- Sprite Sizing
+Sprite Sizing
 
- * explain the size of the sprite
- - size of original sprite animation file
- - size of sprite after cropping
- 
- * explain why the scaling is as such
+- explain the size of the sprite
+
+* size of original sprite animation file
+* size of sprite after cropping
+
+- explain why the scaling is as such
+
+TODO ITEMS:
+
+- rectify platform collision - done
+- change out character sprite - done
+- rectified sprite falling right issue - done
+
+- implement double jump. fix the infinite jump
+  probably just need to set the velocity y to be 0 before allowing character to jump again
+  or can only allow 2 up buttons registered. then when velocity y is 0, register jump inputs again.
+

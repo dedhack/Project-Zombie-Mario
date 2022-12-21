@@ -38,6 +38,7 @@ class Enemy extends Sprite {
 
       this.animations[key].image = image;
     }
+    this.hit = false;
   }
 
   switchSprite(key) {

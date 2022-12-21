@@ -1,9 +1,15 @@
 {
-    "activeFile": "",
+    "activeFile": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/springstar.tsx",
     "expandedProjectPaths": [
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Sprites",
+        "tilesets/Fruits"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Fantasy Woodlands/SET1_bakcground_night3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background/background.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -30,12 +36,16 @@
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/collision.tsx": {
             "scaleInDock": 1
         },
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/springstar.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx": {
             "scale": 1.01,
-            "selectedLayer": 8,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 340.09900990099004,
-                "y": 220.79207920792078
+                "x": 336.6336633663367,
+                "y": 370.7920792079208
             }
         },
         "tilesets/Fruits/Fruits.tsx": {
@@ -62,18 +72,23 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario",
-    "last.imagePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Fantasy Woodlands/SET1/_PNG",
+    "last.exportedFilePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled",
+    "last.imagePath": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/assets",
     "map.lastUsedExportFilter": "JavaScript map files (*.js)",
     "openFiles": [
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx",
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/background.tsx",
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/springstar.tsx"
     ],
     "project": "Mario_Zombie.tiled-project",
     "recentFiles": [
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/background.tsx",
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/springstar.tsx",
+        "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Fantasy Woodlands/SET1_bakcground_night3.tsx",
+        "tilesets/Terrain (16x16).tsx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/Background/background.tsx",
         "tilesets/Fruits/Fruits.tsx",
-        "tilesets/Terrain (16x16).tsx",
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Pixel Adventure/draft1.tmx",
         "tilesets/Fruits/background.tsx",
         "tilesets/Fruits/apple.tsx",

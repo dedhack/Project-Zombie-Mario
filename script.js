@@ -258,7 +258,6 @@ function animate() {
   // Player and enemy collision
   // run a for loop to check over all enemy blocks
   enemyArray.forEach((enemy, index) => {
-    enemy.update();
     if (player.attacking) {
       if (
         player.attackBox.position.x + player.attackBox.width >=
@@ -270,7 +269,8 @@ function animate() {
       ) {
         console.log("pop enemy out of array!");
         player.attacking = false;
-        // enemyArray.slice(enemyArray.indexOf(enemy), 1);
+        enemyArray.splice(index, 1);
+        // enemy.update();
         console.log(index);
       }
     }
@@ -285,6 +285,7 @@ function animate() {
     ) {
       console.log("COLLISION EXPERT BRO- YOU DIED");
     }
+    enemy.update()
   });
 
   // Reset movement when key is not pressed
