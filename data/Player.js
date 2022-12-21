@@ -40,7 +40,7 @@ class Player extends Sprite {
 
       this.animations[key].image = image;
     }
-    this.enemyHitboxes = enemyHitboxes;
+    this.attacking = false;
   }
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
@@ -96,18 +96,6 @@ class Player extends Sprite {
       height: 27,
     };
   }
-  // FIXME: remove the shoot
-  // shoot() {
-  //   if (this.shootPressed) {
-  //     console.log("shootPressed");
-  //     const speed = 5;
-  //     const delay = 7;
-  //     const damage = 1;
-  //     const bulletX = this.hitbox.position.x + 14; // 14 is the width of hitbox we set manually
-  //     const bulletY = this.hitbox.position.y - 27 / 2; // 27 px is the height of the hitbox. we set the bullet to be in the middle
-  //     this.bulletController.shoot(bulletX, bulletY, speed, damage, delay);
-  //   }
-  // }
 
   checkForHorizontalCollisions() {
     for (let i = 0; i < this.collisionBlocks.length; i++) {

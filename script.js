@@ -135,10 +135,10 @@ for (i = 0; i < 10; i++) {
   });
 
   enemyArray.push(enemy);
-  console.log(`loop ${i}: ${x} ${y}`)
+  console.log(`loop ${i}: ${x} ${y}`);
 }
-  
-console.log(enemyArray.length)
+
+console.log(enemyArray);
 
 const player = new Player({
   position: {
@@ -191,6 +191,16 @@ const player = new Player({
       imageSrc: "./img/Adventurer/JumpLeft.png", // TODO: change out this image source
       frameRate: 4, // TODO: frame rate of current player sprite
       frameBuffer: 16,
+    },
+    Attack: {
+      imageSrc: "./img/Adventurer/Attack.png", // TODO: change out this image source
+      frameRate: 5, // TODO: frame rate of current player sprite
+      frameBuffer: 30,
+    },
+    AttackLeft: {
+      imageSrc: "./img/Adventurer/AttackLeft.png", // TODO: change out this image source
+      frameRate: 5, // TODO: frame rate of current player sprite
+      frameBuffer: 15,
     },
   },
   // bulletController, // FIXME: remove
@@ -275,6 +285,10 @@ function animate() {
     if (player.lastDirection === "right") player.switchSprite("Idle");
     else player.switchSprite("IdleLeft");
   }
+  if (player.attacking) {
+    player.switchSprite("Attack");
+    console.log("attacking");
+  }
 
   // switch sprite to jump or fall depending on y-velocity
   if (player.velocity.y < 0) {
@@ -313,8 +327,8 @@ window.addEventListener("keydown", (e) => {
     case "w":
       player.velocity.y = -4; // controls the jump height
       break;
-    case "Enter": //TODO: Add a downward velocity if want to consider downward attacks
-      player.shootPressed = true;
+    case "Enter":
+      player.attacking = true;
       break;
   }
 });
@@ -327,8 +341,8 @@ window.addEventListener("keyup", (e) => {
     case "d":
       keys.d.pressed = false;
       break;
-    case "Enter": //TODO: Add a downward velocity if want to consider downward attacks
-      player.shootPressed = false;
+    case "Enter":
+      player.attacking = false;
       break;
   }
 });

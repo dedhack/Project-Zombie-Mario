@@ -14,7 +14,7 @@ class Enemy extends Sprite {
     this.position = position;
     this.velocity = {
       x: 0,
-      y: 1,
+      y: 2,
     };
 
     this.collisionBlocks = collisionBlocks;
