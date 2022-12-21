@@ -228,8 +228,8 @@ const keys = {
 
 //////////////////
 // Score Tracking & Time Tracking
-let score = 8;
-let timer = 5;
+let score = 0;
+let timer = 10;
 let timerId;
 function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
@@ -240,22 +240,23 @@ function decreaseTimer() {
   }
   if (score === 10) {
     clearTimeout();
-    document.querySelector("#results").innerHTML = "WIN";
+    document.querySelector("#results").innerHTML = "YOU WIN";
     document.querySelector("#results").style.display = "flex";
-    console.log("win");
+    window.cancelAnimationFrame(reqAnim);
   } else if (timer === 0 && score < 10) {
     clearTimeout();
     document.querySelector("#results").innerHTML = "GAMEOVER";
     document.querySelector("#results").style.display = "flex";
-    console.log("GAMEOVER");
+    window.cancelAnimationFrame(reqAnim);
   }
 }
 decreaseTimer();
+
 ///////////////////////////
 // Animation Loop Function
 
 function animate() {
-  window.requestAnimationFrame(animate); // function to run repeatedly
+  reqAnim = window.requestAnimationFrame(animate); // function to run repeatedly
 
   // DOCUMENT: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save
   // context.save() saves the entire state of the canvas by pushing the current state onto a stack
