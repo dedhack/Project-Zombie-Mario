@@ -65,12 +65,13 @@ class Player extends Sprite {
       height: 80,
     };
   }
-  shouldPanCameraToTheLeft() {
-    const cameraBoxRightSide = this.camerabox.position.x + this.camerabox.width;
+  shouldPanCameraToTheLeft({ camera, canvas }) {
+    const cameraboxRightSide = this.camerabox.position.x + this.camerabox.width;
 
     // FIXME: Need to divide canvas.width by 4 due to the scale factor. Should make the scale factor a global variable
     if (cameraboxRightSide >= canvas.width / 4) {
-      console.log("PanCameraToTheLeft");
+      camera.position.x -= this.velocity.x;
+      console.log("panning");
     }
   }
 

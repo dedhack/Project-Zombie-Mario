@@ -3,13 +3,15 @@ const ctx = canvas.getContext("2d");
 
 ////////////////////////////////
 // Canvas
-canvas.width = 1024;
-canvas.height = 576;
+// README: https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look
+
+canvas.width = 1152;
+canvas.height = 864;
 
 const scaledCanvas = {
-  // we divide by 4 because we scaled the original background image by 4
-  width: canvas.width / 4,
-  height: canvas.height / 4,
+  // we divide by 2 because we scaled the original background image by 2
+  width: canvas.width / 2,
+  height: canvas.height / 2,
 };
 
 ////////////////////////////////
@@ -133,7 +135,8 @@ const keys = {
   },
 };
 
-// Instantiate background sprite
+////////////////////////////////
+// Instantiate background sprite and camera panning
 const background = new Sprite({
   position: {
     x: 0,
@@ -141,6 +144,13 @@ const background = new Sprite({
   },
   imageSrc: "./img/background.png",
 });
+
+const camera = {
+  position: {
+    x: 0,
+    y: 0,
+  },
+};
 
 function animate() {
   window.requestAnimationFrame(animate); // function to run repeatedly
@@ -152,8 +162,8 @@ function animate() {
   // DOCUMENT: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save
   // context.save() saves the entire state of the canvas by pushing the current state onto a stack
   ctx.save(); //
-  ctx.scale(4, 4); //TODO: Include this inside the readme document
-  ctx.translate(0, -background.image.height + scaledCanvas.height);
+  ctx.scale(2, 2); //TODO: Include this inside the readme document
+  //   ctx.translate(0, -background.image.height + scaledCanvas.height); //FIXME: Remove this since we no longer using translate to move around the canvas
   background.update();
   ////////////////////////////////////////////////////////////////
   // TODO: Explain collisionBlocks need to be rendered before context is restored
@@ -173,6 +183,7 @@ function animate() {
     player.switchSprite("Run");
     player.velocity.x = 2;
     player.lastDirection = "right";
+    player.shouldPanCameraToTheLeft({ canvas, camera });
   } else if (keys.a.pressed) {
     player.switchSprite("RunLeft");
     player.velocity.x = -2;

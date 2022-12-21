@@ -12,7 +12,7 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 
 1a. Player Class
 
-- extends the Sprite class
+\*extends the Sprite class
 
 -switchSprite()
 
@@ -22,6 +22,10 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 * camerabox()
 
 - the positions x and y is the character x and y coords to ensure that the view of the area follows the player
+
+- shouldPanCameraToTheLeft()
+
+* panning is called on in the main animation loop.
 
 2. CollisionBlock Class
 
@@ -78,3 +82,5 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 - platformCollision()
 
 * explain the difference between collision and platform collision
+
+
