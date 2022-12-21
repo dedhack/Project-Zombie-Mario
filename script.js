@@ -328,7 +328,7 @@ window.addEventListener("keydown", (e) => {
       player.velocity.y = -4; // controls the jump height
       break;
     case "Enter":
-      player.attacking = true;
+      player.attack();
       break;
   }
 });
@@ -341,8 +341,7 @@ window.addEventListener("keyup", (e) => {
     case "d":
       keys.d.pressed = false;
       break;
-    case "Enter":
-      player.attacking = false;
-      break;
+    // case "Enter":
+    //   break;
   }
 });

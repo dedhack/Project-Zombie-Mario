@@ -9,7 +9,6 @@ class Player extends Sprite {
     frameRate,
     scale = 0.9,
     animations,
-    enemyHitboxes,
   }) {
     super({ imageSrc, frameRate, scale });
     this.position = position;
@@ -41,7 +40,23 @@ class Player extends Sprite {
       this.animations[key].image = image;
     }
     this.attacking = false;
+    this.attackBox = {
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      width: 10,
+      height: 5,
+    };
   }
+  // Need to add a delay when attacking button is clicked
+  attack() {
+    this.attacking = true;
+    setTimeout(() => {
+      this.attacking = false;
+    }, 300);
+  }
+
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
 
@@ -54,7 +69,17 @@ class Player extends Sprite {
   update() {
     this.updateFrames();
     this.updateHitbox();
+    this.updateAttackbox();
 
+    // if (player.attacking) {
+    // }
+    ctx.fillStyle = "white";
+    ctx.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height
+    );
     // draws out image box
     ctx.fillStyle = "rgba(0,255,0,0.2";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -67,14 +92,6 @@ class Player extends Sprite {
       this.hitbox.width,
       this.hitbox.height
     );
-    // draw out enemy hitbox player is referring to
-    // ctx.fillStyle = "rgba(255,255,0,1";
-    // ctx.fillRect(
-    //   this.enemyHitboxes.position.x,
-    //   this.hitbox.position.y,
-    //   this.hitbox.width,
-    //   this.hitbox.height
-    // );
 
     this.draw();
     // this.shoot(); //FIXME: remove this
@@ -94,6 +111,16 @@ class Player extends Sprite {
       },
       width: 14,
       height: 27,
+    };
+  }
+  updateAttackbox() {
+    this.attackBox = {
+      position: {
+        x: this.hitbox.position.x,
+        y: this.hitbox.position.y / 2,
+      },
+      width: 10,
+      height: 5,
     };
   }
 
