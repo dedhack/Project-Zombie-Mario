@@ -9,6 +9,7 @@ class Player extends Sprite {
     frameRate,
     scale = 0.9,
     animations,
+    enemyHitboxes,
   }) {
     super({ imageSrc, frameRate, scale });
     this.position = position;
@@ -39,6 +40,7 @@ class Player extends Sprite {
 
       this.animations[key].image = image;
     }
+    this.enemyHitboxes = enemyHitboxes;
   }
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
@@ -65,6 +67,14 @@ class Player extends Sprite {
       this.hitbox.width,
       this.hitbox.height
     );
+    // draw out enemy hitbox player is referring to
+    // ctx.fillStyle = "rgba(255,255,0,1";
+    // ctx.fillRect(
+    //   this.enemyHitboxes.position.x,
+    //   this.hitbox.position.y,
+    //   this.hitbox.width,
+    //   this.hitbox.height
+    // );
 
     this.draw();
     // this.shoot(); //FIXME: remove this
@@ -111,6 +121,7 @@ class Player extends Sprite {
           const offset =
             this.hitbox.position.x - this.position.x + this.hitbox.width;
           this.position.x = collisionBlock.position.x - offset - 0.01;
+          console.log("horizontal block right");
           break;
         }
         // movement to the left
@@ -120,6 +131,7 @@ class Player extends Sprite {
 
           this.position.x =
             collisionBlock.position.x + collisionBlock.width - offset + 0.01;
+          console.log("horizontal block left");
           break;
         }
       }
@@ -135,7 +147,7 @@ class Player extends Sprite {
   checkForVerticalCollisions() {
     for (let i = 0; i < this.collisionBlocks.length; i++) {
       const collisionBlock = this.collisionBlocks[i]; // create an array to store the floor collision blocks in that has been passed into the character object when instantiated
-      
+
       if (collision({ object1: this.hitbox, object2: collisionBlock })) {
         // set the velocity.y to zero if the value is non-zero and a collision has already occurred. Prevent character from passing through blocks
         if (this.velocity.y > 0) {
