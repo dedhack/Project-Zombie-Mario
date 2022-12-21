@@ -212,7 +212,7 @@ const background = new Sprite({
     x: 0,
     y: 0,
   },
-  imageSrc: "./img/background.png",
+  imageSrc: "./img/gaMAP.png",
 });
 
 ///////////////
@@ -345,9 +345,11 @@ function animate() {
 }
 
 animate();
+
 // FIXME: can remove these console logs
 // console.log(enemy);
 // console.log(enemyHitboxes);
+
 ////////////////////////////////
 // Key Inputs
 
@@ -378,7 +380,5 @@ window.addEventListener("keyup", (e) => {
     case "d":
       keys.d.pressed = false;
       break;
-    // case "Enter":
-    //   break;
   }
 });

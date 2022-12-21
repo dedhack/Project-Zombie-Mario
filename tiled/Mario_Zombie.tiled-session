@@ -1,5 +1,5 @@
 {
-    "activeFile": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/springstar.tsx",
+    "activeFile": "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx",
     "expandedProjectPaths": [
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/Sprites",
         "tilesets/Fruits"
@@ -42,10 +42,10 @@
         },
         "/Users/izhar/Documents/GitHub/Project-Zombie-Mario/tiled/verticalPlatformer.tmx": {
             "scale": 1.01,
-            "selectedLayer": 9,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 336.6336633663367,
-                "y": 370.7920792079208
+                "x": 299.00990099009897,
+                "y": 299.50495049504946
             }
         },
         "tilesets/Fruits/Fruits.tsx": {
