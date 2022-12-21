@@ -71,15 +71,16 @@ class Player extends Sprite {
     this.updateHitbox();
     this.updateAttackbox();
 
-    // if (player.attacking) {
-    // }
-    ctx.fillStyle = "white";
-    ctx.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
+    if (player.attacking) {
+      ctx.fillStyle = "white";
+      ctx.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
+
     // draws out image box
     ctx.fillStyle = "rgba(0,255,0,0.2";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -119,7 +120,7 @@ class Player extends Sprite {
         x: this.hitbox.position.x + this.hitbox.width,
         y: this.hitbox.position.y + this.hitbox.height / 2,
       },
-      width: 10,
+      width: 30,
       height: 5,
     };
   }

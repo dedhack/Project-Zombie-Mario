@@ -75,8 +75,8 @@ platformCollisions2D.forEach((row, rowIndex) => {
 const enemyArray = [];
 
 for (i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * 1000);
-  const y = Math.floor(Math.random() * 500);
+  const x = Math.floor(Math.random() * 400);
+  const y = Math.floor(Math.random() * 400);
 
   const enemy = new Enemy({
     position: {
@@ -257,8 +257,24 @@ function animate() {
   // COLLISION EXPERT BROOOOOOOO
   // Player and enemy collision
   // run a for loop to check over all enemy blocks
-  enemyArray.forEach((enemy) => {
+  enemyArray.forEach((enemy, index) => {
     enemy.update();
+    if (player.attacking) {
+      if (
+        player.attackBox.position.x + player.attackBox.width >=
+          enemy.hitbox.position.x &&
+        player.attackBox.position.x <= enemy.hitbox.position.x + enemy.width &&
+        player.attackBox.position.y + player.attackBox.height >=
+          enemy.hitbox.position.y &&
+        player.attackBox.position.y <= enemy.hitbox.position.y + enemy.height
+      ) {
+        console.log("pop enemy out of array!");
+        player.attacking = false;
+        // enemyArray.slice(enemyArray.indexOf(enemy), 1);
+        console.log(index);
+      }
+    }
+
     if (
       player.hitbox.position.x + player.hitbox.width >=
         enemy.hitbox.position.x &&
@@ -267,7 +283,7 @@ function animate() {
         enemy.hitbox.position.y &&
       player.hitbox.position.y <= enemy.hitbox.position.y + enemy.height
     ) {
-      console.log("COLLISION EXPERT BRO");
+      console.log("COLLISION EXPERT BRO- YOU DIED");
     }
   });
 
@@ -286,7 +302,7 @@ function animate() {
     else player.switchSprite("IdleLeft");
   }
   if (player.attacking) {
-    player.switchSprite("Attack");
+    player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
     console.log("attacking");
   }
 
