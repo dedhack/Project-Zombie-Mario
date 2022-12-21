@@ -70,126 +70,75 @@ platformCollisions2D.forEach((row, rowIndex) => {
 /////////////////////////////////
 // Instantiate Enemy Object
 
-const enemy1 = new Enemy({
-  position: {
-    //FIXME: To edit these values
-    x: 450,
-    y: 300,
-  },
-  collisionBlocks: collisionBlocks,
-  platformCollisionBlocks: platformCollisionBlocks,
-
-  imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
-  frameRate: 4, // TODO: frame rate of current player sprite
-  animations: {
-    Idle: {
-      imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 1,
-    },
-    // FIXME: To add the other animation frames later
-    // Run: {
-    //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 7,
-    // },
-    // Jump: {
-    //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // Fall: {
-    //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // FallLeft: {
-    //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // RunLeft: {
-    //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 7,
-    // },
-    // IdleLeft: {
-    //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // JumpLeft: {
-    //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-  },
-});
-const enemy2 = new Enemy({
-  position: {
-    //FIXME: To edit these values
-    x: 400,
-    y: 300,
-  },
-  collisionBlocks: collisionBlocks,
-  platformCollisionBlocks: platformCollisionBlocks,
-
-  imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
-  frameRate: 4, // TODO: frame rate of current player sprite
-  animations: {
-    Idle: {
-      imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
-      frameBuffer: 1,
-    },
-    // FIXME: To add the other animation frames later
-    // Run: {
-    //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 7,
-    // },
-    // Jump: {
-    //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // Fall: {
-    //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // FallLeft: {
-    //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // RunLeft: {
-    //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 7,
-    // },
-    // IdleLeft: {
-    //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
-    //   frameRate: 8, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-    // JumpLeft: {
-    //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
-    //   frameRate: 2, // TODO: frame rate of current player sprite
-    //   frameBuffer: 5,
-    // },
-  },
-});
+// Randomly generate enemy objects at random positions
 
 const enemyArray = [];
-enemyArray.push(enemy1);
-enemyArray.push(enemy2);
 
-////////////////////////////////
-// Instantiate player object
+for (i = 0; i < 10; i++) {
+  const x = Math.floor(Math.random() * 1000);
+  const y = Math.floor(Math.random() * 500);
 
-// FIXME: remove Bullets
-// const bulletController = new BulletController(canvas);
+  const enemy = new Enemy({
+    position: {
+      //FIXME: To edit these values
+      x: x,
+      y: y,
+    },
+    collisionBlocks: collisionBlocks,
+    platformCollisionBlocks: platformCollisionBlocks,
+
+    imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
+    frameRate: 4, // TODO: frame rate of current player sprite
+    animations: {
+      Idle: {
+        imageSrc: "./img/Skeleton - Base/Idle.png", // TODO: change out this image source
+        frameRate: 4, // TODO: frame rate of current player sprite
+        frameBuffer: 1,
+      },
+      // FIXME: To add the other animation frames later
+      // Run: {
+      //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
+      //   frameRate: 8, // TODO: frame rate of current player sprite
+      //   frameBuffer: 7,
+      // },
+      // Jump: {
+      //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
+      //   frameRate: 2, // TODO: frame rate of current player sprite
+      //   frameBuffer: 5,
+      // },
+      // Fall: {
+      //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
+      //   frameRate: 2, // TODO: frame rate of current player sprite
+      //   frameBuffer: 5,
+      // },
+      // FallLeft: {
+      //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
+      //   frameRate: 2, // TODO: frame rate of current player sprite
+      //   frameBuffer: 5,
+      // },
+      // RunLeft: {
+      //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
+      //   frameRate: 8, // TODO: frame rate of current player sprite
+      //   frameBuffer: 7,
+      // },
+      // IdleLeft: {
+      //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
+      //   frameRate: 8, // TODO: frame rate of current player sprite
+      //   frameBuffer: 5,
+      // },
+      // JumpLeft: {
+      //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
+      //   frameRate: 2, // TODO: frame rate of current player sprite
+      //   frameBuffer: 5,
+      // },
+    },
+  });
+
+  enemyArray.push(enemy);
+  console.log(`loop ${i}: ${x} ${y}`)
+}
+  
+console.log(enemyArray.length)
 
 const player = new Player({
   position: {
