@@ -32,21 +32,13 @@ class Player extends Sprite {
 
     this.animations = animations;
     this.lastDirection = "right";
+
     for (let key in this.animations) {
       const image = new Image();
       image.src = this.animations[key].imageSrc;
 
       this.animations[key].image = image;
     }
-    // FIXME: no longer in use
-    // this.camerabox = {
-    //   position: {
-    //     x: this.position.x,
-    //     y: this.position.y,
-    //   },
-    //   width: 200,
-    //   height: 80,
-    // };
   }
   switchSprite(key) {
     if (this.image === this.animations[key].image || !this.loaded) return;
@@ -75,6 +67,7 @@ class Player extends Sprite {
     );
 
     this.draw();
+    // this.shoot(); //FIXME: remove this
 
     this.position.x += this.velocity.x;
     this.updateHitbox(); // TODO: need to be placed before the checks to eliminate jitter. explain inside readme
@@ -93,6 +86,18 @@ class Player extends Sprite {
       height: 27,
     };
   }
+  // FIXME: remove the shoot
+  // shoot() {
+  //   if (this.shootPressed) {
+  //     console.log("shootPressed");
+  //     const speed = 5;
+  //     const delay = 7;
+  //     const damage = 1;
+  //     const bulletX = this.hitbox.position.x + 14; // 14 is the width of hitbox we set manually
+  //     const bulletY = this.hitbox.position.y - 27 / 2; // 27 px is the height of the hitbox. we set the bullet to be in the middle
+  //     this.bulletController.shoot(bulletX, bulletY, speed, damage, delay);
+  //   }
+  // }
 
   checkForHorizontalCollisions() {
     for (let i = 0; i < this.collisionBlocks.length; i++) {
@@ -130,6 +135,7 @@ class Player extends Sprite {
   checkForVerticalCollisions() {
     for (let i = 0; i < this.collisionBlocks.length; i++) {
       const collisionBlock = this.collisionBlocks[i]; // create an array to store the floor collision blocks in that has been passed into the character object when instantiated
+      
       if (collision({ object1: this.hitbox, object2: collisionBlock })) {
         // set the velocity.y to zero if the value is non-zero and a collision has already occurred. Prevent character from passing through blocks
         if (this.velocity.y > 0) {
@@ -141,6 +147,7 @@ class Player extends Sprite {
           this.position.y = collisionBlock.position.y - offset - 0.01; // TODO: update on the this.height c-0.01 to ensure that the block is not colliding anymore. will be used for horizontal collision check
           break;
         }
+
         // For collisions with the bottom of a collision block when player character is jumping
         if (this.velocity.y < 0) {
           this.velocity.y = 0;
@@ -171,19 +178,6 @@ class Player extends Sprite {
             this.hitbox.position.y - this.position.y + this.hitbox.height;
 
           this.position.y = platformCollisionBlock.position.y - offset - 0.01; // TODO: update on the this.height c-0.01 to ensure that the block is not colliding anymore. will be used for horizontal collision check
-          break;
-        }
-        // For collisions with the bottom of a collision block when player character is jumping
-        if (this.velocity.y < 0) {
-          this.velocity.y = 0;
-
-          const offset = this.hitbox.position.y - this.position.y;
-
-          this.position.y =
-            platformCollisionBlock.position.y +
-            platformCollisionBlock.height -
-            offset +
-            0.01; // TODO: +0.01 to ensure that the block is not colliding anymore. will be used for horizontal collision check
           break;
         }
       }

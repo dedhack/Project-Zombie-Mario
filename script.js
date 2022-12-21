@@ -21,7 +21,7 @@ const gravity = 0.1; //FIXME: can edit this to decrease the height of the charac
 // Collision Block Creation
 
 // 1. Floor collision detection
-const floorCollisions2D = []; // 2D array to store floor collision positions
+const floorCollisions2D = []; // 2D array to store floor collision positions. floorCollisions array is in the Collisions.js
 for (let i = 0; i < floorCollisions.length; i += 36) {
   // i increment by 36 due to no. of tiles in the x-axis on the tile map
   floorCollisions2D.push(floorCollisions.slice(i, i + 36)); // slice out from the original 1D array, 36 tiles per row
@@ -69,6 +69,10 @@ platformCollisions2D.forEach((row, rowIndex) => {
 
 ////////////////////////////////
 // Instantiate player object
+
+// FIXME: remove Bullets
+// const bulletController = new BulletController(canvas);
+
 const player = new Player({
   position: {
     //FIXME: To edit these values
@@ -122,6 +126,7 @@ const player = new Player({
       frameBuffer: 5,
     },
   },
+  // bulletController, // FIXME: remove
 });
 
 /////////////////////////////////
@@ -216,6 +221,7 @@ function animate() {
   background.update();
   ////////////////////////////////////////////////////////////////
   // TODO: Explain collisionBlocks need to be rendered before context is restored
+  // Below is to visualize the collision blocks
   collisionBlocks.forEach((collisionBlock) => {
     collisionBlock.update();
   });
@@ -273,7 +279,7 @@ window.addEventListener("keydown", (e) => {
       player.velocity.y = -4; // controls the jump height
       break;
     case "Enter": //TODO: Add a downward velocity if want to consider downward attacks
-      console.log("shoot");
+      player.shootPressed = true;
       break;
   }
 });
@@ -285,6 +291,9 @@ window.addEventListener("keyup", (e) => {
       break;
     case "d":
       keys.d.pressed = false;
+      break;
+    case "Enter": //TODO: Add a downward velocity if want to consider downward attacks
+      player.shootPressed = false;
       break;
   }
 });
