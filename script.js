@@ -186,6 +186,16 @@ const keys = {
 };
 
 ////////////////////////////////
+// Music
+const music = document.querySelector("#audio");
+const victorySound = document.querySelector("#victory-sound");
+const defeatSound = document.querySelector("#defeat-sound");
+const sword = document.querySelector("#sword");
+
+
+music.play();
+music.volume = 0.3;
+////////////////////////////////
 // Key Inputs
 
 window.addEventListener("keydown", (e) => {
@@ -247,6 +257,7 @@ function animate() {
       ) {
         player.attacking = false;
         enemyArray.splice(index, 1);
+        sword.play()
         score++;
       }
     }
@@ -317,12 +328,16 @@ function restartGame() {
 function endGame(collision) {
   if (score === 10) {
     clearTimeout(timerId); // Reset the
+    music.pause();
+    victorySound.play();
     document.querySelector("#results").innerHTML = "YOU WIN";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
     restartGame();
   } else if ((timer === 0 && score < 10) || collision === true) {
     clearTimeout(timerId);
+    music.pause();
+    defeatSound.play();
     document.querySelector("#results").innerHTML = "GAMEOVER";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
