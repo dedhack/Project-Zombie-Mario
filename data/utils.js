@@ -37,7 +37,7 @@ function restartGame() {
 
 function endGame(collision) {
   if (score === 10) {
-    clearTimeout(timerId);
+    clearTimeout(timerId); // Reset the 
     document.querySelector("#results").innerHTML = "YOU WIN";
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);

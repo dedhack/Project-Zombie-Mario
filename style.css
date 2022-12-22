@@ -52,8 +52,8 @@ body {
   left: 0;
   display: flex;
   font-size: xx-large;
-  padding: 20px
-  background-color: ;
+  padding: 20px;
+  /* background-color: ; */
 }
 
 #restart {

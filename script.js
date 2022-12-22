@@ -14,12 +14,13 @@ const scaledCanvas = {
 
 ////////////////////////////////
 // Global variables
+
+// Setting gravity
 const gravity = 0.1; //FIXME: can edit this to decrease the height of the character jumping
 
-//////////////////
 // Score Tracking & Time Tracking
 let score = 0;
-let timer = 60; // FIXME: can edit this to manipulate the time
+let timer = 60; // FIXME: can edit this to manipulate the time. Future difficulties will just need to change this via
 let timerId;
 
 ////////////////////////////////
@@ -75,7 +76,7 @@ platformCollisions2D.forEach((row, rowIndex) => {
 /////////////////////////////////
 // Instantiate Enemy Objects
 
-// Randomly generate enemy objects at random positions
+//  Generate enemy objects at random positions
 const enemyArray = [];
 
 for (i = 0; i < 10; i++) {
@@ -113,57 +114,57 @@ const player = new Player({
   collisionBlocks: collisionBlocks,
   platformCollisionBlocks: platformCollisionBlocks,
 
-  imageSrc: "./img/Adventurer/Idle.png", // TODO: change out this image source
-  frameRate: 4, // TODO: frame rate of current player sprite
+  imageSrc: "./img/Adventurer/Idle.png",
+  frameRate: 4,
   animations: {
     Idle: {
-      imageSrc: "./img/Adventurer/Idle.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Idle.png",
+      frameRate: 4,
       frameBuffer: 16,
     },
     Run: {
-      imageSrc: "./img/Adventurer/Run.png", // TODO: change out this image source
-      frameRate: 5, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Run.png",
+      frameRate: 5,
       frameBuffer: 10,
     },
     Jump: {
-      imageSrc: "./img/Adventurer/Jump.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Jump.png",
+      frameRate: 4,
       frameBuffer: 16,
     },
     Fall: {
-      imageSrc: "./img/Adventurer/Fall.png", // TODO: change out this image source
-      frameRate: 2, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Fall.png",
+      frameRate: 2,
       frameBuffer: 10,
     },
     FallLeft: {
-      imageSrc: "./img/Adventurer/FallLeft.png", // TODO: change out this image source
-      frameRate: 2, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/FallLeft.png",
+      frameRate: 2,
       frameBuffer: 10,
     },
     RunLeft: {
-      imageSrc: "./img/Adventurer/RunLeft.png", // TODO: change out this image source
-      frameRate: 5, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/RunLeft.png",
+      frameRate: 5,
       frameBuffer: 10,
     },
     IdleLeft: {
-      imageSrc: "./img/Adventurer/IdleLeft.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/IdleLeft.png",
+      frameRate: 4,
       frameBuffer: 16,
     },
     JumpLeft: {
-      imageSrc: "./img/Adventurer/JumpLeft.png", // TODO: change out this image source
-      frameRate: 4, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/JumpLeft.png",
+      frameRate: 4,
       frameBuffer: 16,
     },
     Attack: {
-      imageSrc: "./img/Adventurer/Attack.png", // TODO: change out this image source
-      frameRate: 5, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/Attack.png",
+      frameRate: 5,
       frameBuffer: 28,
     },
     AttackLeft: {
-      imageSrc: "./img/Adventurer/AttackLeft.png", // TODO: change out this image source
-      frameRate: 5, // TODO: frame rate of current player sprite
+      imageSrc: "./img/Adventurer/AttackLeft.png",
+      frameRate: 5,
       frameBuffer: 15,
     },
   },
@@ -231,32 +232,16 @@ function animate() {
 
   // DOCUMENT: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save
   // context.save() saves the entire state of the canvas by pushing the current state onto a stack
-  ctx.save(); //
+  ctx.save(); // you ned to to ensure the scaling following this doesn't take into effect
   ctx.scale(2, 2); //TODO: Include this inside the readme document
   background.update();
-  ////////////////////////////////////////////////////////////////
-  // TODO: Explain collisionBlocks need to be rendered before context is restored
-  // Below is to visualize the collision blocks
-  // enemyHitboxes.forEach((collisionBlock) => {
-  //   collisionBlock.update();
-  // });
-
-  // Platform collision block rendering by calling update() which calls draw()
-  // platformCollisionBlocks.forEach((platformCollisionBlock) => {
-  //   platformCollisionBlock.draw();
-  // });
-  // collisionBlocks.forEach((collisionBlock) => {
-  //   collisionBlock.draw();
-  // });
 
   player.update();
-  // Reset movement when key is not pressed
-  player.velocity.x = 0;
+  player.velocity.x = 0; // Reset movement when key is not pressed
 
-  // COLLISION EXPERT BROOOOOOOO
-  // Player and enemy collision
-  // run a for loop to check over all enemy blocks
+  // Player and enemy collision & attack check.
   enemyArray.forEach((enemy, index) => {
+    // check if player atack hitbox hits enemy hitbox
     if (player.attacking) {
       if (
         player.attackBox.position.x + player.attackBox.width >=
@@ -266,14 +251,13 @@ function animate() {
           enemy.hitbox.position.y &&
         player.attackBox.position.y <= enemy.hitbox.position.y + enemy.height
       ) {
-        console.log("pop enemy out of array!");
         player.attacking = false;
         enemyArray.splice(index, 1);
         score++;
-        console.log(score);
       }
     }
 
+    // check if player sprite hitbox hits enemy hitbox
     if (
       player.hitbox.position.x + player.hitbox.width >=
         enemy.hitbox.position.x &&
@@ -282,16 +266,13 @@ function animate() {
         enemy.hitbox.position.y &&
       player.hitbox.position.y <= enemy.hitbox.position.y + enemy.height
     ) {
-      console.log("COLLISION EXPERT BRO- YOU DIED");
       let collision = true;
       endGame(collision);
     }
     enemy.update();
   });
 
-  //////////////////
-
-  // Attacking directions
+  // Player attacking directions
   if (player.attacking && player.lastDirection === "right") {
     player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
   } else if (player.attacking && player.lastDirection === "left") {
@@ -323,17 +304,11 @@ function animate() {
   } else if (player.velocity.y > 0) {
     if (player.lastDirection === "right") {
       player.switchSprite("Fall");
-      // console.log("Fall right");
     } else {
       player.switchSprite("FallLeft");
-      // console.log("Fall left");
     }
   }
-  ctx.restore();
+  ctx.restore(); // restores the context
 }
 
 animate();
-
-// FIXME: can remove these console logs
-// console.log(enemy);
-// console.log(enemyHitboxes);
