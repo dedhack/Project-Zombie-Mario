@@ -3,7 +3,6 @@ const ctx = canvas.getContext("2d");
 
 ////////////////////////////////
 // Canvas
-// README: https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look
 canvas.width = 1152;
 canvas.height = 864;
 
@@ -20,7 +19,7 @@ const gravity = 0.1; //FIXME: can edit this to decrease the height of the charac
 //////////////////
 // Score Tracking & Time Tracking
 let score = 0;
-let timer = 60;
+let timer = 60; // FIXME: can edit this to manipulate the time
 let timerId;
 
 ////////////////////////////////
@@ -74,14 +73,13 @@ platformCollisions2D.forEach((row, rowIndex) => {
 });
 
 /////////////////////////////////
-// Instantiate Enemy Object
+// Instantiate Enemy Objects
 
 // Randomly generate enemy objects at random positions
-
 const enemyArray = [];
 
 for (i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * 400);
+  const x = 50 + Math.floor(Math.random() * 500);
   const y = Math.floor(Math.random() * 400);
 
   const enemy = new Enemy({
@@ -101,50 +99,10 @@ for (i = 0; i < 10; i++) {
         frameRate: 4, // TODO: frame rate of current player sprite
         frameBuffer: 1,
       },
-      // FIXME: To add the other animation frames later
-      // Run: {
-      //   imageSrc: "./img/warrior/Run.png", // TODO: change out this image source
-      //   frameRate: 8, // TODO: frame rate of current player sprite
-      //   frameBuffer: 7,
-      // },
-      // Jump: {
-      //   imageSrc: "./img/warrior/Jump.png", // TODO: change out this image source
-      //   frameRate: 2, // TODO: frame rate of current player sprite
-      //   frameBuffer: 5,
-      // },
-      // Fall: {
-      //   imageSrc: "./img/warrior/Fall.png", // TODO: change out this image source
-      //   frameRate: 2, // TODO: frame rate of current player sprite
-      //   frameBuffer: 5,
-      // },
-      // FallLeft: {
-      //   imageSrc: "./img/warrior/FallLeft.png", // TODO: change out this image source
-      //   frameRate: 2, // TODO: frame rate of current player sprite
-      //   frameBuffer: 5,
-      // },
-      // RunLeft: {
-      //   imageSrc: "./img/warrior/RunLeft.png", // TODO: change out this image source
-      //   frameRate: 8, // TODO: frame rate of current player sprite
-      //   frameBuffer: 7,
-      // },
-      // IdleLeft: {
-      //   imageSrc: "./img/warrior/IdleLeft.png", // TODO: change out this image source
-      //   frameRate: 8, // TODO: frame rate of current player sprite
-      //   frameBuffer: 5,
-      // },
-      // JumpLeft: {
-      //   imageSrc: "./img/warrior/JumpLeft.png", // TODO: change out this image source
-      //   frameRate: 2, // TODO: frame rate of current player sprite
-      //   frameBuffer: 5,
-      // },
     },
   });
   enemyArray.push(enemy);
 }
-
-enemyArray.forEach((enemy) => {
-  console.log(enemy.position.x, enemy.position.y);
-});
 
 // console.log(enemyArray);
 
@@ -214,7 +172,7 @@ const player = new Player({
 });
 
 ////////////////////////////////
-// Instantiate background sprite and camera panning
+// Instantiate background sprite
 const background = new Sprite({
   position: {
     x: 0,
@@ -224,7 +182,7 @@ const background = new Sprite({
 });
 
 ///////////////
-// Keys array
+// Keys array to keep track if left and right movement pressed
 const keys = {
   d: {
     pressed: false,
@@ -233,6 +191,39 @@ const keys = {
     pressed: false,
   },
 };
+
+////////////////////////////////
+// Key Inputs
+
+window.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "a":
+      keys.a.pressed = true;
+      player.velocity.x = -1;
+      break;
+    case "d":
+      keys.d.pressed = true;
+      player.velocity.x = 1;
+      break;
+    case "w":
+      player.velocity.y = -3; // controls the jump height
+      break;
+    case "Enter":
+      player.attack();
+      break;
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  switch (e.key) {
+    case "a":
+      keys.a.pressed = false;
+      break;
+    case "d":
+      keys.d.pressed = false;
+      break;
+  }
+});
 
 ///////////////////////////
 // Animation Loop Function
@@ -309,9 +300,15 @@ function animate() {
   }
 
   if (keys.d.pressed) {
-    player.switchSprite("Run");
-    player.velocity.x = 1;
-    player.lastDirection = "right";
+    if (player.position.x + player.hitbox.width < canvas.width) {
+      player.switchSprite("Run");
+      player.velocity.x = 1;
+      player.lastDirection = "right";
+    } else {
+      player.switchSprite("Run");
+      player.velocity.x = -1;
+      player.lastDirection = "right";
+    }
   } else if (keys.a.pressed) {
     player.switchSprite("RunLeft");
     player.velocity.x = -1;
@@ -342,36 +339,3 @@ animate();
 // FIXME: can remove these console logs
 // console.log(enemy);
 // console.log(enemyHitboxes);
-
-////////////////////////////////
-// Key Inputs
-
-window.addEventListener("keydown", (e) => {
-  switch (e.key) {
-    case "a":
-      keys.a.pressed = true;
-      player.velocity.x = -1;
-      break;
-    case "d":
-      keys.d.pressed = true;
-      player.velocity.x = 1;
-      break;
-    case "w":
-      player.velocity.y = -3; // controls the jump height
-      break;
-    case "Enter":
-      player.attack();
-      break;
-  }
-});
-
-window.addEventListener("keyup", (e) => {
-  switch (e.key) {
-    case "a":
-      keys.a.pressed = false;
-      break;
-    case "d":
-      keys.d.pressed = false;
-      break;
-  }
-});

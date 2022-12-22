@@ -82,20 +82,19 @@ class Player extends Sprite {
     }
 
     // // draws out image box
-    ctx.fillStyle = "rgba(0,255,0,0.2";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // ctx.fillStyle = "rgba(0,255,0,0.2";
+    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // draw out hitbox
-    ctx.fillStyle = "rgba(255,0,0,0.2";
-    ctx.fillRect(
-      this.hitbox.position.x,
-      this.hitbox.position.y,
-      this.hitbox.width,
-      this.hitbox.height
-    );
+    // ctx.fillStyle = "rgba(255,0,0,0.2";
+    // ctx.fillRect(
+    //   this.hitbox.position.x,
+    //   this.hitbox.position.y,
+    //   this.hitbox.width,
+    //   this.hitbox.height
+    // );
 
     this.draw();
-    // this.shoot(); //FIXME: remove this
 
     this.position.x += this.velocity.x;
     this.updateHitbox(); // TODO: need to be placed before the checks to eliminate jitter. explain inside readme
