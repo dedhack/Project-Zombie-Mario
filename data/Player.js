@@ -54,7 +54,7 @@ class Player extends Sprite {
     this.attacking = true;
     setTimeout(() => {
       this.attacking = false;
-    }, 300);
+    }, 500);
   }
 
   switchSprite(key) {
@@ -81,18 +81,18 @@ class Player extends Sprite {
       );
     }
 
-    // draws out image box
-    ctx.fillStyle = "rgba(0,255,0,0.2";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // // draws out image box
+    // ctx.fillStyle = "rgba(0,255,0,0.2";
+    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // draw out hitbox
-    ctx.fillStyle = "rgba(255,0,0,0.2";
-    ctx.fillRect(
-      this.hitbox.position.x,
-      this.hitbox.position.y,
-      this.hitbox.width,
-      this.hitbox.height
-    );
+    // ctx.fillStyle = "rgba(255,0,0,0.2";
+    // ctx.fillRect(
+    //   this.hitbox.position.x,
+    //   this.hitbox.position.y,
+    //   this.hitbox.width,
+    //   this.hitbox.height
+    // );
 
     this.draw();
     // this.shoot(); //FIXME: remove this

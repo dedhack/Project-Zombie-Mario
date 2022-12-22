@@ -55,17 +55,17 @@ class Enemy extends Sprite {
     this.updateHitbox();
 
     // draws out image box
-    ctx.fillStyle = "rgba(0,255,0,0.2"; // transparent green
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // ctx.fillStyle = "rgba(0,255,0,0.2"; // transparent green
+    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // draw out hitbox
-    ctx.fillStyle = "rgba(255,0,0,0.2)"; // transparent red
-    ctx.fillRect(
-      this.hitbox.position.x,
-      this.hitbox.position.y,
-      this.hitbox.width,
-      this.hitbox.height
-    );
+    // ctx.fillStyle = "rgba(255,0,0,0.2)"; // transparent red
+    // ctx.fillRect(
+    //   this.hitbox.position.x,
+    //   this.hitbox.position.y,
+    //   this.hitbox.width,
+    //   this.hitbox.height
+    // );
 
     this.draw();
 

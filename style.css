@@ -2,12 +2,10 @@
   /* removes padding from all elements */
   box-sizing: border-box;
 }
-body {
-  /* background: red; */
-}
 
-div {
-  /* text-align: center; */
+body {
+  background: black;
+  font-family: "Lacquer", cursive;
 }
 
 #container {
@@ -30,6 +28,7 @@ div {
   height: 30px;
   width: 100%;
 }
+
 #timer {
   background-color: grey;
   /* display: inline-block; */
@@ -53,16 +52,19 @@ div {
   left: 0;
   display: flex;
   font-size: xx-large;
+  padding: 20px
+  background-color: ;
 }
 
 #restart {
-  background-color: red;
+  background-color: rgb(236, 65, 65);
   border: none;
   border-radius: 0.5rem;
   padding: 0.7rem 1rem;
   position: absolute;
   display: none;
   align-items: center;
+  font-family: "Lacquer", cursive;
 }
 
 #canvas {

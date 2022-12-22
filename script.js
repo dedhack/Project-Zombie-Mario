@@ -136,13 +136,17 @@ for (i = 0; i < 10; i++) {
   enemyArray.push(enemy);
 }
 
+enemyArray.forEach((enemy) => {
+  console.log(enemy.position.x, enemy.position.y);
+});
+
 // console.log(enemyArray);
 
 const player = new Player({
   position: {
     //FIXME: To edit these values
-    x: 100,
-    y: 300,
+    x: 10,
+    y: 170,
   },
   collisionBlocks: collisionBlocks,
   platformCollisionBlocks: platformCollisionBlocks,
@@ -193,7 +197,7 @@ const player = new Player({
     Attack: {
       imageSrc: "./img/Adventurer/Attack.png", // TODO: change out this image source
       frameRate: 5, // TODO: frame rate of current player sprite
-      frameBuffer: 30,
+      frameBuffer: 28,
     },
     AttackLeft: {
       imageSrc: "./img/Adventurer/AttackLeft.png", // TODO: change out this image source
@@ -227,13 +231,12 @@ const keys = {
 //////////////////
 // Score Tracking & Time Tracking
 let score = 0;
-let timer = 30;
+let timer = 60;
 let timerId;
 function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000);
   if (timer > 0) {
     timer--;
-    // score++;
     document.querySelector("#timer").innerHTML = "TIME: " + timer;
   }
   endGame();
@@ -305,7 +308,17 @@ function animate() {
   });
 
   // Reset movement when key is not pressed
+
   player.velocity.x = 0;
+
+  // Attacking directions
+  if (player.attacking && player.lastDirection === "right") {
+    player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
+    console.log("attacking right");
+  } else if (player.attacking && player.lastDirection === "left") {
+    console.log("attack left");
+  }
+
   if (keys.d.pressed) {
     player.switchSprite("Run");
     player.velocity.x = 2;
@@ -317,14 +330,6 @@ function animate() {
   } else if (player.velocity.y === 0) {
     if (player.lastDirection === "right") player.switchSprite("Idle");
     else player.switchSprite("IdleLeft");
-  }
-
-  // Attacking directions
-  if (player.attacking && player.lastDirection === "right") {
-    player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
-    console.log("attacking");
-  } else if (player.attacking && player.lastDirection === "left") {
-    console.log("attack left");
   }
 
   // switch sprite to jump or fall depending on y-velocity
@@ -340,7 +345,6 @@ function animate() {
       // console.log("Fall left");
     }
   }
-
   ctx.restore();
 }
 
