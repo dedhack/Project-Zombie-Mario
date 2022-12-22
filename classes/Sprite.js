@@ -10,7 +10,7 @@ class Sprite {
   }) {
     this.position = position;
     this.image = new Image();
-    this.loaded = false; // set to false that image has been loaded
+    this.loaded = false; // set default to false that image has been loaded when instantiated
     this.image.onload = () => {
       this.width = (this.image.width / this.frameRate) * this.scale;
       this.height = this.image.height * this.scale;
@@ -36,17 +36,17 @@ class Sprite {
         x: this.currentFrame * (this.image.width / this.frameRate),
         y: 0,
       },
-      width: this.image.width / this.frameRate, // since the frame rate of sprite is 8
+      width: this.image.width / this.frameRate,
       height: this.image.height,
     };
 
     ctx.drawImage(
       this.image,
-      cropbox.position.x,
+      cropbox.position.x, //image dimensions
       cropbox.position.y,
       cropbox.width,
       cropbox.height,
-      this.position.x,
+      this.position.x, // location to place image on canvas
       this.position.y,
       this.width,
       this.height
@@ -55,7 +55,7 @@ class Sprite {
   updateFrames() {
     this.elapsedFrames++;
 
-    // this if statement is to delay the sprite animation. instead of updating at every frame,
+    // this if statement is to delay the sprite animation. instead of updating the frame at every animation loop,
     // instead, after a few loops, when the elapsed frames % frame buffer is 0, then only will we update the current frame to the next one
     if (this.elapsedFrames % this.frameBuffer === 0)
       if (this.currentFrame < this.frameRate - 1) this.currentFrame++;

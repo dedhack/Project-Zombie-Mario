@@ -6,12 +6,6 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1152;
 canvas.height = 864;
 
-const scaledCanvas = {
-  // we divide by 2 because we scaled the original background image by 2
-  width: canvas.width / 2,
-  height: canvas.height / 2,
-};
-
 ////////////////////////////////
 // Global variables
 
@@ -19,7 +13,7 @@ const scaledCanvas = {
 const gravity = 0.1; //FIXME: can edit this to decrease the height of the character jumping
 
 // Score Tracking & Time Tracking
-let score = 0;
+let score = 0; // Variable to keep track of our score
 let timer = 60; // FIXME: can edit this to manipulate the time. Future difficulties will just need to change this via
 let timerId;
 
@@ -266,8 +260,8 @@ function animate() {
         enemy.hitbox.position.y &&
       player.hitbox.position.y <= enemy.hitbox.position.y + enemy.height
     ) {
-      let collision = true;
-      endGame(collision);
+      let isCollision = true;
+      endGame(isCollision);
     }
     enemy.update();
   });
@@ -312,3 +306,36 @@ function animate() {
 }
 
 animate();
+
+// https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Game_over
+function restartGame() {
+  const restartBtn = document.getElementById("restart");
+  restartBtn.style.display = "flex";
+  restartBtn.addEventListener("click", () => document.location.reload());
+}
+
+function endGame(collision) {
+  if (score === 10) {
+    clearTimeout(timerId); // Reset the
+    document.querySelector("#results").innerHTML = "YOU WIN";
+    document.querySelector("#results").style.display = "flex";
+    window.cancelAnimationFrame(reqAnim);
+    restartGame();
+  } else if ((timer === 0 && score < 10) || collision === true) {
+    clearTimeout(timerId);
+    document.querySelector("#results").innerHTML = "GAMEOVER";
+    document.querySelector("#results").style.display = "flex";
+    window.cancelAnimationFrame(reqAnim);
+    restartGame();
+  }
+}
+
+function decreaseTimer() {
+  timerId = setTimeout(decreaseTimer, 1000); // 1000 milliseconds or 1 second
+  if (timer > 0) {
+    timer--;
+    document.querySelector("#timer").innerHTML = "TIME: " + timer;
+  }
+  endGame(false);
+}
+decreaseTimer();
