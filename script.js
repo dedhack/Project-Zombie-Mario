@@ -104,8 +104,6 @@ for (i = 0; i < 10; i++) {
   enemyArray.push(enemy);
 }
 
-// console.log(enemyArray);
-
 const player = new Player({
   position: {
     //FIXME: To edit these values
@@ -181,7 +179,7 @@ const background = new Sprite({
   imageSrc: "./img/gaMAP.png",
 });
 
-///////////////
+////////////////////////////////
 // Keys array to keep track if left and right movement pressed
 const keys = {
   d: {
