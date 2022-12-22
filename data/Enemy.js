@@ -59,13 +59,13 @@ class Enemy extends Sprite {
     // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // draw out hitbox
-    // ctx.fillStyle = "rgba(255,0,0,0.2)"; // transparent red
-    // ctx.fillRect(
-    //   this.hitbox.position.x,
-    //   this.hitbox.position.y,
-    //   this.hitbox.width,
-    //   this.hitbox.height
-    // );
+    ctx.fillStyle = "rgba(255,0,0,0.2)"; // transparent red
+    ctx.fillRect(
+      this.hitbox.position.x,
+      this.hitbox.position.y,
+      this.hitbox.width,
+      this.hitbox.height
+    );
 
     this.draw();
 
@@ -79,11 +79,11 @@ class Enemy extends Sprite {
   updateHitbox() {
     this.hitbox = {
       position: {
-        x: this.position.x + 4,
-        y: this.position.y + 0,
+        x: this.position.x + 7,
+        y: this.position.y + 2,
       },
-      width: 13,
-      height: 24,
+      width: 10,
+      height: 20,
     };
   }
 

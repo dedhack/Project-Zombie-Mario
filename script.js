@@ -17,6 +17,12 @@ const scaledCanvas = {
 // Global variables
 const gravity = 0.1; //FIXME: can edit this to decrease the height of the character jumping
 
+//////////////////
+// Score Tracking & Time Tracking
+let score = 0;
+let timer = 60;
+let timerId;
+
 ////////////////////////////////
 // Collision Block Creation
 
@@ -228,21 +234,6 @@ const keys = {
   },
 };
 
-//////////////////
-// Score Tracking & Time Tracking
-let score = 0;
-let timer = 60;
-let timerId;
-function decreaseTimer() {
-  timerId = setTimeout(decreaseTimer, 1000);
-  if (timer > 0) {
-    timer--;
-    document.querySelector("#timer").innerHTML = "TIME: " + timer;
-  }
-  endGame();
-}
-decreaseTimer();
-
 ///////////////////////////
 // Animation Loop Function
 
@@ -270,6 +261,8 @@ function animate() {
   // });
 
   player.update();
+  // Reset movement when key is not pressed
+  player.velocity.x = 0;
 
   // COLLISION EXPERT BROOOOOOOO
   // Player and enemy collision
@@ -307,25 +300,21 @@ function animate() {
     enemy.update();
   });
 
-  // Reset movement when key is not pressed
-
-  player.velocity.x = 0;
+  //////////////////
 
   // Attacking directions
   if (player.attacking && player.lastDirection === "right") {
     player.switchSprite("Attack"); //TODO: Animation not implemented properly yet.
-    console.log("attacking right");
   } else if (player.attacking && player.lastDirection === "left") {
-    console.log("attack left");
   }
 
   if (keys.d.pressed) {
     player.switchSprite("Run");
-    player.velocity.x = 2;
+    player.velocity.x = 1;
     player.lastDirection = "right";
   } else if (keys.a.pressed) {
     player.switchSprite("RunLeft");
-    player.velocity.x = -2;
+    player.velocity.x = -1;
     player.lastDirection = "left";
   } else if (player.velocity.y === 0) {
     if (player.lastDirection === "right") player.switchSprite("Idle");
@@ -368,7 +357,7 @@ window.addEventListener("keydown", (e) => {
       player.velocity.x = 1;
       break;
     case "w":
-      player.velocity.y = -4; // controls the jump height
+      player.velocity.y = -3; // controls the jump height
       break;
     case "Enter":
       player.attack();

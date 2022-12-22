@@ -103,3 +103,5 @@ TODO ITEMS:
   probably just need to set the velocity y to be 0 before allowing character to jump again
   or can only allow 2 up buttons registered. then when velocity y is 0, register jump inputs again.
 
+
+- better state management

@@ -30,8 +30,6 @@ class Sprite {
   }
 
   draw() {
-    if (!this.image) return;
-
     // crop the sprite image
     const cropbox = {
       position: {
