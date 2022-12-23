@@ -10,12 +10,13 @@ canvas.height = 864;
 // Global variables
 
 // Setting gravity
-const gravity = 0.1; //FIXME: can edit this to decrease the height of the character jumping
+const gravity = 0.1; //FIXME: can edit this to control how fast the player falls
 
 // Score Tracking & Time Tracking
 let score = 0; // Variable to keep track of our score
 let timer = 60; // FIXME: can edit this to manipulate the time. Future difficulties will just need to change this via
 let timerId;
+let numOfEnemies = 20;
 
 ////////////////////////////////
 // Collision Block Creation
@@ -73,7 +74,7 @@ platformCollisions2D.forEach((row, rowIndex) => {
 //  Generate enemy objects at random positions
 const enemyArray = [];
 
-for (i = 0; i < 10; i++) {
+for (i = 0; i < numOfEnemies; i++) {
   const x = 50 + Math.floor(Math.random() * 500);
   const y = Math.floor(Math.random() * 400);
 
@@ -175,6 +176,16 @@ const background = new Sprite({
 });
 
 ////////////////////////////////
+// Music
+const music = document.querySelector("#audio");
+const victorySound = document.querySelector("#victory-sound");
+const defeatSound = document.querySelector("#defeat-sound");
+const sword = document.querySelector("#sword");
+
+music.play();
+music.volume = 0.5;
+
+////////////////////////////////
 // Keys array to keep track if left and right movement pressed
 const keys = {
   d: {
@@ -185,16 +196,6 @@ const keys = {
   },
 };
 
-////////////////////////////////
-// Music
-const music = document.querySelector("#audio");
-const victorySound = document.querySelector("#victory-sound");
-const defeatSound = document.querySelector("#defeat-sound");
-const sword = document.querySelector("#sword");
-
-
-music.play();
-music.volume = 0.3;
 ////////////////////////////////
 // Key Inputs
 
@@ -245,7 +246,7 @@ function animate() {
 
   // Player and enemy collision & attack check.
   enemyArray.forEach((enemy, index) => {
-    // check if player atack hitbox hits enemy hitbox
+    // check if player attack hitbox hits enemy hitbox
     if (player.attacking) {
       if (
         player.attackBox.position.x + player.attackBox.width >=
@@ -257,7 +258,7 @@ function animate() {
       ) {
         player.attacking = false;
         enemyArray.splice(index, 1);
-        sword.play()
+        sword.play();
         score++;
       }
     }
@@ -326,7 +327,7 @@ function restartGame() {
 }
 
 function endGame(collision) {
-  if (score === 10) {
+  if (score === numOfEnemies) {
     clearTimeout(timerId); // Reset the
     music.pause();
     victorySound.play();
@@ -334,7 +335,7 @@ function endGame(collision) {
     document.querySelector("#results").style.display = "flex";
     window.cancelAnimationFrame(reqAnim);
     restartGame();
-  } else if ((timer === 0 && score < 10) || collision === true) {
+  } else if ((timer === 0 && score < numOfEnemies) || collision === true) {
     clearTimeout(timerId);
     music.pause();
     defeatSound.play();

@@ -23,9 +23,7 @@ Mario faces evil zombies in the post apocalyptic Mushroom Kingdom
 
 - the positions x and y is the character x and y coords to ensure that the view of the area follows the player
 
-- shouldPanCameraToTheLeft()
 
-* panning is called on in the main animation loop.
 
 2. CollisionBlock Class
 
