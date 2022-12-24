@@ -6,7 +6,7 @@
 Hack and slash the skeleton zombies before the timer runs out to win!  
 Don't get hit by them or it's **GAMEOVER** 
 
-TODO: Include screenshot of the game
+[Screenshot](screenshots/MainGame.png)
 
 ## Game Controls
 
