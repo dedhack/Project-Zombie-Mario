@@ -5,11 +5,12 @@
 Hack and slash the skeleton zombies before the timer runs out to win!  
 Don't get hit by them or it's **GAMEOVER**
 
-[Screenshot](screenshots/MainGame.png?raw=true)
+![Screenshot](screenshots/MainGame.png?raw=true)
 
 ## Game Controls
 
-Use the following buttons for movement in-game:<br/>
+Use the following buttons for movement in-game:  
+
 **W**: Up  
 **A**: Left  
 **D**: Right  
@@ -28,7 +29,7 @@ Links to a few great resources are:
 - Plaformer game [tutorial] (https://www.youtube.com/watch?v=rTVoyWu8r6g&t=8183s&ab_channel=ChrisCourses)
 - Fighting game [tutorial](https://www.youtube.com/watch?v=vyqbNFMDRGQ&ab_channel=ChrisCourses)
 
-When building this game, I had the simple objective that the overall MVP was a game where players can move around and attack enemies, remnisincence of old school platformers and side-scroller games such as Super Mario World and Sonic.
+When building this game, I had the simple objective that the overall MVP was a game where players can move around and attack enemies, reminiscence of old school platformers and side-scroller games such as Super Mario World and Sonic.
 
 Following that, other things can come into play such as coins, power-ups and so on.
 
@@ -115,7 +116,7 @@ const floorCollisions = [
 
 In the collisions.js file, you will find a 1D array that have 0s and some unique values, such as 202 in the example above. These are actually arrays that are generated when we create the game map and exported them using the application [Tiled](https://www.mapeditor.org/).
 
-\*Insert screenshot of the tiled map
+![Tiled-Map](screenshots/tiledMap.png?raw=true)
 
 These values help to generate the blocks in the game. The general approach was to convert these arrays to 2D arrays instead through slicing. From there, we are able to generate the x & y position of these blocks and with their width and height, draw out these blocks as objects (refer to collisionBlocks.js on how these properties are used in the collisionBlock class).
 
@@ -126,7 +127,6 @@ Given more time, there are definitely more things that I would like to have adde
 - Creating movement for enemies
 - Adding power-ups such as speed (increasing velocity when a player touches the power-up) or bombs (clearing enemies from the enemyArray to simulate mass clearing of enemies)
 - Adding different game-modes (manipulating amount of time to clear a level, and number of enemies generated in-game)
--
 
 ## Credits
 
