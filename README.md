@@ -1,6 +1,6 @@
 # Project-Zombie-Mario
 
-####Simple 2D platformer game
+Simple 2D platformer game
 
 Hack and slash the skeleton zombies before the timer runs out to win!  
 Don't get hit by them or it's **GAMEOVER**
@@ -9,7 +9,7 @@ Don't get hit by them or it's **GAMEOVER**
 
 ## Game Controls
 
-Use the following buttons for movement in-game:  
+Use the following buttons for movement in-game:
 
 **W**: Up  
 **A**: Left  
