@@ -23,10 +23,10 @@ Building a 2D game from scratch was definitely not an easy task. But thankfully,
 Links to a few great resources are:
 
 - Tutorial on understanding how to use [canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) in HTML5.
-- Simple Javascript game [tutorial] (https://www.youtube.com/watch?v=bG2BmmYr9NQ&ab_channel=KnifeCircus)
+- Simple Javascript game [tutorial](https://www.youtube.com/watch?v=bG2BmmYr9NQ&ab_channel=KnifeCircus)
 - Collision Detection [tutorial](https://www.youtube.com/watch?v=_MyPLZSGS3s&ab_channel=ChrisCourses)
 - How to use [Tiled](https://www.youtube.com/watch?v=IHmF_bRpOAE&ab_channel=Challacade) Map Editor
-- Plaformer game [tutorial] (https://www.youtube.com/watch?v=rTVoyWu8r6g&t=8183s&ab_channel=ChrisCourses)
+- Plaformer game [tutorial](https://www.youtube.com/watch?v=rTVoyWu8r6g&t=8183s&ab_channel=ChrisCourses)
 - Fighting game [tutorial](https://www.youtube.com/watch?v=vyqbNFMDRGQ&ab_channel=ChrisCourses)
 
 When building this game, I had the simple objective that the overall MVP was a game where players can move around and attack enemies, reminiscence of old school platformers and side-scroller games such as Super Mario World and Sonic.
