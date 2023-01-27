@@ -41,7 +41,7 @@ Since this is my first attempt at building a game, it has been challenging but f
 
 One of the most crucial things that I needed to understand was the whole idea was that fundamentally, 2D platform games are simply just blocks that are moving in two-axes, x and y. How we position them and move them is by translating them in these directions. From there, interactions between them can be triggered by recognising that they are "colliding" with each other.
 
-###1. Collision blocks
+### 1. Collision blocks
 
 If you look through the codes in the utils.js, you will see that it showcases the collision checks between player and the environment. The checks are to see if there any intersections between the player blocks and the environment. We are checking if their axes added with their height and width, and overlapping with each other.
 
