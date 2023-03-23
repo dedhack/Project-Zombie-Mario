@@ -1,6 +1,7 @@
 # Project-Zombie-Mario
 
 Simple 2D platformer game
+try it here! https://project-zombie-mario.vercel.app/
 
 Hack and slash the skeleton zombies before the timer runs out to win!  
 Don't get hit by them or it's **GAMEOVER**
